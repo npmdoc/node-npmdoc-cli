@@ -249,15 +249,6 @@
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.cli.glob">
-            function <span class="apidocSignatureSpan">cli.</span>glob
-            <span class="apidocSignatureSpan">(pattern, options, cb)</span>
-            </a>
-
-        </li>
-
-        <li>
-
             <a class="apidocElementLiA" href="#apidoc.element.cli.info">
             function <span class="apidocSignatureSpan">cli.</span>info
             <span class="apidocSignatureSpan">(msg)</span>
@@ -1677,46 +1668,6 @@ case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
 
 
     <h2>
-        <a href="#apidoc.element.cli.glob" id="apidoc.element.cli.glob">
-        function <span class="apidocSignatureSpan">cli.</span>glob
-        <span class="apidocSignatureSpan">(pattern, options, cb)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function glob(pattern, options, cb) {
-  if (typeof options === &#x27;function&#x27;) cb = options, options = {}
-  if (!options) options = {}
-
-  if (options.sync) {
-    if (cb)
-      throw new TypeError(&#x27;callback provided to sync glob&#x27;)
-    return globSync(pattern, options)
-  }
-
-  return new Glob(pattern, options, cb)
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
- */
-var enable = {
-help: true,      //Adds -h, --help
-version: false,  //Adds -v,--version =&#x3e; gets version by parsing a nearby package.json
-status: false,   //Adds -k,--no-color &#x26; --debug =&#x3e; display plain status messages /display debug messages
-timeout: false,  //Adds -t,--timeout N =&#x3e; timeout the process after N seconds
-catchall: false, //Adds -c,--catch =&#x3e; catch and output uncaughtExceptions
-glob: false      //Adds glob matching =&#x3e; use cli.<span class="apidocCodeKeywordSpan">glob</span>(arg)
-}
-cli.enable = function (/*plugins*/) {
-Array.prototype.slice.call(arguments).forEach(function (plugin) {
-    switch (plugin) {
-    case &#x27;catchall&#x27;:
-        process.on(&#x27;uncaughtException&#x27;, function (err) {
-            cli.error(&#x27;Uncaught exception: &#x27; + (err.msg || err));
-...</pre></li>
-    </ul>
-
-
-
-    <h2>
         <a href="#apidoc.element.cli.info" id="apidoc.element.cli.info">
         function <span class="apidocSignatureSpan">cli.</span>info
         <span class="apidocSignatureSpan">(msg)</span>
@@ -1756,24 +1707,7 @@ cli.ok(msg);
     <li>description and source-code<pre class="apidocCodePre">main = function (callback) {
     callback.call(cli, cli.args, cli.options);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-cli.parse({
-newline:   [&#x27;n&#x27;, &#x27;Do not output the trailing newline&#x27;],
-escape:    [&#x27;e&#x27;, &#x27;Enable interpretation of backslash escapes&#x27;],
-separator: [&#x27;s&#x27;, &#x27;Separate arguments using this value&#x27;, &#x27;string&#x27;, &#x27; &#x27;],
-output:    [false, &#x27;Write to FILE rather than the console&#x27;, &#x27;file&#x27;]
-});
-
-cli.<span class="apidocCodeKeywordSpan">main</span>(function (args, options) {
-var output = &#x27;&#x27;, i, j, l, output_stream;
-
-if (this.argc) {
-    if (options.escape) {
-        var replace = {&#x27;\\n&#x27;:&#x27;\n&#x27;,&#x27;\\r&#x27;:&#x27;\r&#x27;,&#x27;\\t&#x27;:&#x27;\t&#x27;,&#x27;\\e&#x27
-;:&#x27;\e&#x27;,&#x27;\\v&#x27;:&#x27;\v&#x27;,&#x27;\\f&#x27;:&#x27;\f&#x27;,&#x27;\\c&#x27;:&#x27;\c&#x27;,&#x27;\\b&#x27;:&#x27;\b&#x27;,&#x27;\\a&#x27;:&#x27;\a&#x27;,&#x27;\\\\&#x27;:&#x27;\\&#x27;};
-        var escape = function (str) {
-            str += &#x27;&#x27;;
-...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
@@ -2341,20 +2275,7 @@ cli.<span class="apidocCodeKeywordSpan">setArgv</span>(process.argv);
         if (i == l) i = 0;
     }, 200);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-
-
-
-#!/usr/bin/env node
-
-var cli = require(&#x27;cli&#x27;);
-
-cli.<span class="apidocCodeKeywordSpan">spinner</span>(&#x27;Working..&#x27;);
-
-setTimeout(function () {
-    cli.spinner(&#x27;Working.. done!&#x27;, true); //End the spinner
-}, 3000);
-...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 

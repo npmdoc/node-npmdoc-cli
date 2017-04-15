@@ -242,15 +242,6 @@
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.cli.glob">
-            function <span class="apidocSignatureSpan">cli.</span>glob
-            <span class="apidocSignatureSpan">(pattern, options, cb)</span>
-            </a>
-
-        </li>
-
-        <li>
-
             <a class="apidocElementLiA" href="#apidoc.element.cli.info">
             function <span class="apidocSignatureSpan">cli.</span>info
             <span class="apidocSignatureSpan">(msg)</span>
@@ -1670,46 +1661,6 @@ case 'date': case 'datetime': case 'date_time':
 
 
     <h2>
-        <a href="#apidoc.element.cli.glob" id="apidoc.element.cli.glob">
-        function <span class="apidocSignatureSpan">cli.</span>glob
-        <span class="apidocSignatureSpan">(pattern, options, cb)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function glob(pattern, options, cb) {
-  if (typeof options === 'function') cb = options, options = {}
-  if (!options) options = {}
-
-  if (options.sync) {
-    if (cb)
-      throw new TypeError('callback provided to sync glob')
-    return globSync(pattern, options)
-  }
-
-  return new Glob(pattern, options, cb)
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
- */
-var enable = {
-help: true,      //Adds -h, --help
-version: false,  //Adds -v,--version =&gt; gets version by parsing a nearby package.json
-status: false,   //Adds -k,--no-color &amp; --debug =&gt; display plain status messages /display debug messages
-timeout: false,  //Adds -t,--timeout N =&gt; timeout the process after N seconds
-catchall: false, //Adds -c,--catch =&gt; catch and output uncaughtExceptions
-glob: false      //Adds glob matching =&gt; use cli.<span class="apidocCodeKeywordSpan">glob</span>(arg)
-}
-cli.enable = function (/*plugins*/) {
-Array.prototype.slice.call(arguments).forEach(function (plugin) {
-    switch (plugin) {
-    case 'catchall':
-        process.on('uncaughtException', function (err) {
-            cli.error('Uncaught exception: ' + (err.msg || err));
-...</pre></li>
-    </ul>
-
-
-
-    <h2>
         <a href="#apidoc.element.cli.info" id="apidoc.element.cli.info">
         function <span class="apidocSignatureSpan">cli.</span>info
         <span class="apidocSignatureSpan">(msg)</span>
@@ -1749,24 +1700,7 @@ cli.ok(msg);
     <li>description and source-code<pre class="apidocCodePre">main = function (callback) {
     callback.call(cli, cli.args, cli.options);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-cli.parse({
-newline:   ['n', 'Do not output the trailing newline'],
-escape:    ['e', 'Enable interpretation of backslash escapes'],
-separator: ['s', 'Separate arguments using this value', 'string', ' '],
-output:    [false, 'Write to FILE rather than the console', 'file']
-});
-
-cli.<span class="apidocCodeKeywordSpan">main</span>(function (args, options) {
-var output = '', i, j, l, output_stream;
-
-if (this.argc) {
-    if (options.escape) {
-        var replace = {'\\n':'\n','\\r':'\r','\\t':'\t','\\e'
-;:'\e','\\v':'\v','\\f':'\f','\\c':'\c','\\b':'\b','\\a':'\a','\\\\':'\\'};
-        var escape = function (str) {
-            str += '';
-...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
@@ -2334,20 +2268,7 @@ cli.<span class="apidocCodeKeywordSpan">setArgv</span>(process.argv);
         if (i == l) i = 0;
     }, 200);
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-
-
-
-#!/usr/bin/env node
-
-var cli = require('cli');
-
-cli.<span class="apidocCodeKeywordSpan">spinner</span>('Working..');
-
-setTimeout(function () {
-    cli.spinner('Working.. done!', true); //End the spinner
-}, 3000);
-...</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
 
