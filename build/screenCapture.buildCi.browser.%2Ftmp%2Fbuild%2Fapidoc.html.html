@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="http://github.com/node-js-libs/cli"
-
-    >cli (v1.0.1)</a>
+    <a href="http://github.com/node-js-libs/cli">cli (v1.0.1)</a>
 </h1>
 <h4>A tool for rapidly building command line apps</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.cli">module cli</a><ol>
 
@@ -1152,12 +1145,12 @@
     if (list.length === 0 || list.indexOf(command) !== -1) {
         return command;
     }
-    for (i = 0; i &#x3c; c; i++) {
+    for (i = 0; i &lt; c; i++) {
         tmp_list = [];
         l = list.length;
-        if (l &#x3c;= 1) break;
-        for (j = 0; j &#x3c; l; j++)
-            if (list[j].length &#x3e;= i &#x26;&#x26; list[j][i] === command[i])
+        if (l &lt;= 1) break;
+        for (j = 0; j &lt; l; j++)
+            if (list[j].length &gt;= i &amp;&amp; list[j][i] === command[i])
                 tmp_list.push(list[j]);
         list = tmp_list;
     }
@@ -1165,17 +1158,17 @@
     if (l === 1) {
         return list[0];
     } else if (l === 0) {
-        cli.fatal(&#x27;Unknown command &#x22;&#x27; + command + &#x27;&#x22;&#x27; + (enable.help ? &#x27;. Please see --help for more information&#x27; : &#x27;&#x27;));
+        cli.fatal('Unknown command "' + command + '"' + (enable.help ? '. Please see --help for more information' : ''));
     } else {
         list.sort();
-        cli.fatal(&#x27;The command &#x22;&#x27; + command + &#x27;&#x22; is ambiguous and could mean &#x22;&#x27; + list.join(&#x27;&#x22;, &#x22;&#x27;) + &#x27;&#x22;&#x27;);
+        cli.fatal('The command "' + command + '" is ambiguous and could mean "' + list.join('", "') + '"');
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
             if (enable.help) {
                 cli.getUsage();
             } else {
-                cli.fatal(&#x27;A command is required (&#x27; + command_list.join(&#x27;, &#x27;) + &#x27;).&#x27;);
+                cli.fatal('A command is required (' + command_list.join(', ') + ').');
             }
             return cli.exit(1);
         } else {
@@ -1203,18 +1196,18 @@
     var defaultStackErrorHandler = function (req, res, err) {
         if (err) {
             console.error(err.stack);
-            res.writeHead(500, {&#x22;Content-Type&#x22;: &#x22;text/plain&#x22;});
-            return res.end(err.stack + &#x22;\n&#x22;);
+            res.writeHead(500, {"Content-Type": "text/plain"});
+            return res.end(err.stack + "\n");
         }
-        res.writeHead(404, {&#x22;Content-Type&#x22;: &#x22;text/plain&#x22;});
-        res.end(&#x22;Not Found\n&#x22;);
+        res.writeHead(404, {"Content-Type": "text/plain"});
+        res.end("Not Found\n");
     };
     var handle, error;
     handle = error = defaultStackErrorHandler;
     var layers = Array.prototype.slice.call(arguments);
 
     //Allow createServer(a,b,c) and createServer([a,b,c])
-    if (layers.length &#x26;&#x26; layers[0] instanceof Array) {
+    if (layers.length &amp;&amp; layers[0] instanceof Array) {
         layers = layers[0];
     }
     layers.reverse().forEach(function (layer) {
@@ -1236,7 +1229,7 @@
 }
 
 /**
- * Bind creationix&#x27;s stack (https://github.com/creationix/stack).
+ * Bind creationix's stack (https://github.com/creationix/stack).
  *
  * Create a simple middleware stack by calling:
  *
@@ -1311,7 +1304,7 @@ cli.no_color = true;
  *
  * Methods are chainable - `cli.enable(plugin).disable(plugin2)`.
  *
- * The &#x27;help&#x27; plugin is enabled by default.
+ * The 'help' plugin is enabled by default.
  */
 var enable = {
 help: true,      //Adds -h, --help
@@ -1330,20 +1323,20 @@ help: true,      //Adds -h, --help
     <li>description and source-code<pre class="apidocCodePre">enable = function () {
     Array.prototype.slice.call(arguments).forEach(function (plugin) {
         switch (plugin) {
-        case &#x27;catchall&#x27;:
-            process.on(&#x27;uncaughtException&#x27;, function (err) {
-                cli.error(&#x27;Uncaught exception: &#x27; + (err.msg || err));
+        case 'catchall':
+            process.on('uncaughtException', function (err) {
+                cli.error('Uncaught exception: ' + (err.msg || err));
             });
             break;
-        case &#x27;help&#x27;: case &#x27;version&#x27;: case &#x27;status&#x27;:
-        case &#x27;autocomplete&#x27;: case &#x27;timeout&#x27;:
+        case 'help': case 'version': case 'status':
+        case 'autocomplete': case 'timeout':
             //Just add switches.
             break;
-        case &#x27;glob&#x27;:
-            cli.glob = require(&#x27;glob&#x27;);
+        case 'glob':
+            cli.glob = require('glob');
             break;
         default:
-            cli.fatal(&#x27;Unknown plugin &#x22;&#x27; + plugin + &#x27;&#x22;&#x27;);
+            cli.fatal('Unknown plugin "' + plugin + '"');
             break;
         }
         enable[plugin] = true;
@@ -1351,8 +1344,8 @@ help: true,      //Adds -h, --help
     return cli;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-cli also comes bundled with kof&#x27;s [node-natives](https://github.com/kof/node-natives) (access with cli.native) and creationix
-&#x27; [stack](https://github.com/creationix/stack) (access with cli.createServer)
+cli also comes bundled with kof's [node-natives](https://github.com/kof/node-natives) (access with cli.native) and creationix
+' [stack](https://github.com/creationix/stack) (access with cli.createServer)
 
 ## Plugins
 
@@ -1416,16 +1409,16 @@ cli.ok(msg);
             if (errback) {
                 return errback(err, stdout);
             }
-            return cli.fatal(&#x27;exec() failed\n&#x27; + err);
+            return cli.fatal('exec() failed\n' + err);
         }
         if (callback) {
-            callback(stdout.split(&#x27;\n&#x27;));
+            callback(stdout.split('\n'));
         }
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```javascript
-cli.progress(progress); //Where 0 &#x3c;= progress &#x3c;= 1
+cli.progress(progress); //Where 0 &lt;= progress &lt;= 1
 ```
 
 To spawn a child process, use
@@ -1435,8 +1428,8 @@ cli.<span class="apidocCodeKeywordSpan">exec</span>(cmd, callback); //callback r
 )
 ```
 
-cli also comes bundled with kof&#x27;s [node-natives](https://github.com/kof/node-natives) (access with cli.native) and creationix
-&#x27; [stack](https://github.com/creationix/stack) (access with cli.createServer)
+cli also comes bundled with kof's [node-natives](https://github.com/kof/node-natives) (access with cli.native) and creationix
+' [stack](https://github.com/creationix/stack) (access with cli.createServer)
 
 ## Plugins
 
@@ -1467,7 +1460,7 @@ Plugins are a way of adding common opts and can be enabled using
     if (stream.bufferSize === 0) {
       drainCount++;
     } else {
-      stream.write(&#x27;&#x27;, &#x27;utf-8&#x27;, function() {
+      stream.write('', 'utf-8', function() {
         drainCount++;
         tryToExit();
       });
@@ -1480,26 +1473,26 @@ Plugins are a way of adding common opts and can be enabled using
   // In Windows, when run as a Node.js child process, a script utilizing
   // this library might just exit with a 0 exit code, regardless. This code,
   // despite the fact that it looks a bit crazy, appears to fix that.
-  process.on(&#x27;exit&#x27;, function() {
+  process.on('exit', function() {
     process.exit(exitCode);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-if (enable.help &#x26;&#x26; (o === &#x27;h&#x27; || o === &#x27;help&#x27;)) {
+if (enable.help &amp;&amp; (o === 'h' || o === 'help')) {
     cli.getUsage();
-} else if (enable.version &#x26;&#x26; (o === &#x27;v&#x27; || o === &#x27;version&#x27;)) {
+} else if (enable.version &amp;&amp; (o === 'v' || o === 'version')) {
     if (cli.version == null) {
         cli.parsePackageJson();
     }
-    console.error(cli.app + &#x27; v&#x27; + cli.version);
+    console.error(cli.app + ' v' + cli.version);
     cli.<span class="apidocCodeKeywordSpan">exit</span>();
     break;
-} else if (enable.catchall &#x26;&#x26; (o === &#x27;c&#x27; || o === &#x27;catch&#x27;)) {
+} else if (enable.catchall &amp;&amp; (o === 'c' || o === 'catch')) {
     continue;
-} else if (enable.status &#x26;&#x26; (o === &#x27;k&#x27; || o === &#x27;no-color&#x27;)) {
-    cli.no_color = (o === &#x27;k&#x27; || o === &#x27;no-color&#x27;);
+} else if (enable.status &amp;&amp; (o === 'k' || o === 'no-color')) {
+    cli.no_color = (o === 'k' || o === 'no-color');
     continue;
-} else if (enable.status &#x26;&#x26; (o === &#x27;debug&#x27;)) {
+} else if (enable.status &amp;&amp; (o === 'debug')) {
 ...</pre></li>
     </ul>
 
@@ -1546,17 +1539,17 @@ cli.ok(msg);
     <li>description and source-code<pre class="apidocCodePre">getArrayValue = function (arr, default_val) {
     return cli.getValue(default_val, function (value) {
         if (arr.indexOf(value) === -1) {
-            throw &#x27;Unexpected value&#x27;;
+            throw 'Unexpected value';
         }
         return value;
-    }, cli.getOptError(&#x27;either [&#x27; + arr.join(&#x27;|&#x27;) + &#x27;]&#x27;, &#x27;VALUE&#x27;));
+    }, cli.getOptError('either [' + arr.join('|') + ']', 'VALUE'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 }
 if (opt_list[opt][2] instanceof Array) {
-    for (i = 0, l = opt_list[opt][2].length; i &#x3c; l; i++) {
-        if (typeof opt_list[opt][2][i] === &#x27;number&#x27;) {
-            opt_list[opt][2][i] += &#x27;&#x27;;
+    for (i = 0, l = opt_list[opt][2].length; i &lt; l; i++) {
+        if (typeof opt_list[opt][2][i] === 'number') {
+            opt_list[opt][2][i] += '';
         }
     }
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getArrayValue</span>(opt_list[opt][2], is_long ? null : default_val);
@@ -1566,7 +1559,7 @@ if (opt_list[opt][2].toLowerCase) {
     opt_list[opt][2] = opt_list[opt][2].toLowerCase();
 }
 switch (opt_list[opt][2]) {
-case &#x27;string&#x27;: case 1: case true:
+case 'string': case 1: case true:
 ...</pre></li>
     </ul>
 
@@ -1582,29 +1575,29 @@ case &#x27;string&#x27;: case 1: case true:
     <li>description and source-code<pre class="apidocCodePre">getDate = function (default_val) {
 
     return cli.getValue(default_val, function (value) {
-        if (cli.toType(value) === &#x27;date&#x27;) return value;
+        if (cli.toType(value) === 'date') return value;
         value = new Date(value);
         if ( ! value.getTime() ) {
             throw value.toString();
         }
 
         return value;
-    }, cli.getOptError(&#x27;a date&#x27;, &#x27;DATE&#x27;));
+    }, cli.getOptError('a date', 'DATE'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     break;
-case &#x27;int&#x27;: case &#x27;number&#x27;: case &#x27;num&#x27;:
-case &#x27;time&#x27;: case &#x27;seconds&#x27;: case &#x27;secs&#x27;: case &#x27;minutes&#x27;: case &#x27;mins&#x27;:
-case &#x27;x&#x27;: case &#x27;n&#x27;:
+case 'int': case 'number': case 'num':
+case 'time': case 'seconds': case 'secs': case 'minutes': case 'mins':
+case 'x': case 'n':
     parsed[opt] = cli.getInt(default_val);
     break;
-case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+case 'date': case 'datetime': case 'date_time':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getDate</span>(default_val);
     break;
-case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+case 'float': case 'decimal':
     parsed[opt] = cli.getFloat(default_val);
     break;
-case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+case 'path': case 'file': case 'directory': case 'dir':
     parsed[opt] = cli.getPath(default_val, opt_list[opt][2]);
     break;
 ...</pre></li>
@@ -1621,27 +1614,27 @@ case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getEmail = function (default_val) {
     return cli.getValue(default_val, function (value) {
-        if (!value.match(/^(?:[\w\!\#\$\%\&#x26;\&#x27;\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&#x26;\&#x27;\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a
+        if (!value.match(/^(?:[\w\!\#\$\%\&amp;\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&amp;\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a
 -zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/)) {
-            throw &#x27;Invalid email&#x27;;
+            throw 'Invalid email';
         }
         return value;
-    }, cli.getOptError(&#x27;an email&#x27;, &#x27;EMAIL&#x27;));
+    }, cli.getOptError('an email', 'EMAIL'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+case 'float': case 'decimal':
     parsed[opt] = cli.getFloat(default_val);
     break;
-case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+case 'path': case 'file': case 'directory': case 'dir':
     parsed[opt] = cli.getPath(default_val, opt_list[opt][2]);
     break;
-case &#x27;email&#x27;:
+case 'email':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getEmail</span>(default_val);
     break;
-case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;host&#x27;:
+case 'url': case 'uri': case 'domain': case 'host':
     parsed[opt] = cli.getUrl(default_val, opt_list[opt][2]);
     break;
-case &#x27;ip&#x27;:
+case 'ip':
     parsed[opt] = cli.getIp(default_val);
     break;
 ...</pre></li>
@@ -1659,25 +1652,25 @@ case &#x27;ip&#x27;:
     <li>description and source-code<pre class="apidocCodePre">getFloat = function (default_val) {
     return cli.getValue(default_val, function (value) {
         if (!value.match(/^(?:-?(?:0|[1-9][0-9]*))?(?:\.[0-9]*)?$/)) {
-            throw &#x27;Invalid float&#x27;;
+            throw 'Invalid float';
         }
         return parseFloat(value, 10);
-    }, cli.getOptError(&#x27;a number&#x27;, &#x27;NUMBER&#x27;));
+    }, cli.getOptError('a number', 'NUMBER'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-case &#x27;x&#x27;: case &#x27;n&#x27;:
+case 'x': case 'n':
     parsed[opt] = cli.getInt(default_val);
     break;
-case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+case 'date': case 'datetime': case 'date_time':
     parsed[opt] = cli.getDate(default_val);
     break;
-case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+case 'float': case 'decimal':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getFloat</span>(default_val);
     break;
-case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+case 'path': case 'file': case 'directory': case 'dir':
     parsed[opt] = cli.getPath(default_val, opt_list[opt][2]);
     break;
-case &#x27;email&#x27;:
+case 'email':
     parsed[opt] = cli.getEmail(default_val);
     break;
 ...</pre></li>
@@ -1694,27 +1687,27 @@ case &#x27;email&#x27;:
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getInt = function (default_val) {
     return cli.getValue(default_val, function (value) {
-        if (typeof value === &#x27;number&#x27;) return value;
+        if (typeof value === 'number') return value;
         if (!value.match(/^(?:-?(?:0|[1-9][0-9]*))$/)) {
-            throw &#x27;Invalid int&#x27;;
+            throw 'Invalid int';
         }
         return parseInt(value);
-    }, cli.getOptError(&#x27;a number&#x27;, &#x27;NUMBER&#x27;));
+    }, cli.getOptError('a number', 'NUMBER'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 switch (opt_list[opt][2]) {
-case &#x27;string&#x27;: case 1: case true:
+case 'string': case 1: case true:
     parsed[opt] = cli.getValue(default_val);
     break;
-case &#x27;int&#x27;: case &#x27;number&#x27;: case &#x27;num&#x27;:
-case &#x27;time&#x27;: case &#x27;seconds&#x27;: case &#x27;secs&#x27;: case &#x27;minutes&#x27;: case &#x27;mins&#x27;:
-case &#x27;x&#x27;: case &#x27;n&#x27;:
+case 'int': case 'number': case 'num':
+case 'time': case 'seconds': case 'secs': case 'minutes': case 'mins':
+case 'x': case 'n':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getInt</span>(default_val);
     break;
-case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+case 'date': case 'datetime': case 'date_time':
     parsed[opt] = cli.getDate(default_val);
     break;
-case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+case 'float': case 'decimal':
     parsed[opt] = cli.getFloat(default_val);
     break;
 ...</pre></li>
@@ -1732,25 +1725,25 @@ case &#x27;float&#x27;: case &#x27;decimal&#x27;:
     <li>description and source-code<pre class="apidocCodePre">getIp = function (default_val) {
     return cli.getValue(default_val, function (value) {
         if (!value.match(/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/)) {
-            throw &#x27;Invalid IP&#x27;;
+            throw 'Invalid IP';
         }
         return value;
-    }, cli.getOptError(&#x27;an IP&#x27;, &#x27;IP&#x27;));
+    }, cli.getOptError('an IP', 'IP'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-case &#x27;email&#x27;:
+case 'email':
     parsed[opt] = cli.getEmail(default_val);
     break;
-case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;host&#x27;:
+case 'url': case 'uri': case 'domain': case 'host':
     parsed[opt] = cli.getUrl(default_val, opt_list[opt][2]);
     break;
-case &#x27;ip&#x27;:
+case 'ip':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getIp</span>(default_val);
     break;
-case &#x27;bool&#x27;: case &#x27;boolean&#x27;: case &#x27;on&#x27;:
+case 'bool': case 'boolean': case 'on':
     parsed[opt] = true;
     break;
-case &#x27;false&#x27;: case &#x27;off&#x27;: case false: case 0:
+case 'false': case 'off': case false: case 0:
     parsed[opt] = false;
     break;
 ...</pre></li>
@@ -1766,8 +1759,8 @@ case &#x27;false&#x27;: case &#x27;off&#x27;: case false: case 0:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getOptError = function (expects, type) {
-    var err = full_opt + &#x27; expects &#x27; + expects
-            + &#x27;. Use `&#x27; + cli.app + &#x27; &#x27; + full_opt + (is_long ? &#x27;=&#x27; : &#x27; &#x27;) + type + &#x27;`&#x27;;
+    var err = full_opt + ' expects ' + expects
+            + '. Use `' + cli.app + ' ' + full_opt + (is_long ? '=' : ' ') + type + '`';
     return err;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
@@ -1778,7 +1771,7 @@ case &#x27;false&#x27;: case &#x27;off&#x27;: case false: case 0:
  * @api public
  */
 cli.getValue = function (default_val, validate_func, err_msg) {
-err_msg = err_msg || cli.<span class="apidocCodeKeywordSpan">getOptError</span>(&#x27;a value&#x27;, &#x27;VALUE&#x27;);
+err_msg = err_msg || cli.<span class="apidocCodeKeywordSpan">getOptError</span>('a value', 'VALUE');
 
 var value;
 
@@ -1799,28 +1792,28 @@ try {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getPath = function (default_val, identifier) {
-    identifier = identifier || &#x27;path&#x27;;
+    identifier = identifier || 'path';
     return cli.getValue(default_val, function (value) {
         if (value.match(/[?*;{}]/)) {
-            throw &#x27;Invalid path&#x27;;
+            throw 'Invalid path';
         }
         return value;
-    }, cli.getOptError(&#x27;a &#x27; + identifier, identifier.toUpperCase()));
+    }, cli.getOptError('a ' + identifier, identifier.toUpperCase()));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+case 'date': case 'datetime': case 'date_time':
     parsed[opt] = cli.getDate(default_val);
     break;
-case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+case 'float': case 'decimal':
     parsed[opt] = cli.getFloat(default_val);
     break;
-case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+case 'path': case 'file': case 'directory': case 'dir':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getPath</span>(default_val, opt_list[opt][2]);
     break;
-case &#x27;email&#x27;:
+case 'email':
     parsed[opt] = cli.getEmail(default_val);
     break;
-case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;host&#x27;:
+case 'url': case 'uri': case 'domain': case 'host':
     parsed[opt] = cli.getUrl(default_val, opt_list[opt][2]);
     break;
 ...</pre></li>
@@ -1836,29 +1829,29 @@ case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getUrl = function (default_val, identifier) {
-    identifier = identifier || &#x27;url&#x27;;
+    identifier = identifier || 'url';
     return cli.getValue(default_val, function (value) {
         if (!value.match(/^(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|net|gov|mil|biz|info
-|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2})?)|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&#x26;(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/i)) {
-            throw &#x27;Invalid URL&#x27;;
+|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2})?)|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&amp;(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/i)) {
+            throw 'Invalid URL';
         }
         return value;
-    }, cli.getOptError(&#x27;a &#x27; + identifier, identifier.toUpperCase()));
+    }, cli.getOptError('a ' + identifier, identifier.toUpperCase()));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+case 'path': case 'file': case 'directory': case 'dir':
     parsed[opt] = cli.getPath(default_val, opt_list[opt][2]);
     break;
-case &#x27;email&#x27;:
+case 'email':
     parsed[opt] = cli.getEmail(default_val);
     break;
-case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;host&#x27;:
+case 'url': case 'uri': case 'domain': case 'host':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getUrl</span>(default_val, opt_list[opt][2]);
     break;
-case &#x27;ip&#x27;:
+case 'ip':
     parsed[opt] = cli.getIp(default_val);
     break;
-case &#x27;bool&#x27;: case &#x27;boolean&#x27;: case &#x27;on&#x27;:
+case 'bool': case 'boolean': case 'on':
     parsed[opt] = true;
     break;
 ...</pre></li>
@@ -1880,29 +1873,29 @@ case &#x27;bool&#x27;: case &#x27;boolean&#x27;: case &#x27;on&#x27;:
     var trunc_desc = function (pref, desc, len) {
         var pref_len = pref.length,
             desc_len = cli.width - pref_len,
-            truncated = &#x27;&#x27;;
-        if (desc.length &#x3c;= desc_len) {
+            truncated = '';
+        if (desc.length &lt;= desc_len) {
             return desc;
         }
-        var desc_words = (desc+&#x27;&#x27;).split(&#x27; &#x27;), chars = 0, word;
+        var desc_words = (desc+'').split(' '), chars = 0, word;
         while (desc_words.length) {
-            truncated += (word = desc_words.shift()) + &#x27; &#x27;;
+            truncated += (word = desc_words.shift()) + ' ';
             chars += word.length;
-            if (desc_words.length &#x26;&#x26; chars + desc_words[0].length &#x3e; desc_len) {
-                truncated += &#x27;\n&#x27; + pad(pref_len);
+            if (desc_words.length &amp;&amp; chars + desc_words[0].length &gt; desc_len) {
+                truncated += '\n' + pad(pref_len);
                 chars = 0;
             }
         }
         return truncated;
     };
 
-    usage = usage || cli.app + &#x27; [OPTIONS]&#x27; + (command_list.length ? &#x27; &#x3c;command&#x3e;&#x27; : &#x27;&#x27;) + &#x27; [ARGS]&#x27;;
+    usage = usage || cli.app + ' [OPTIONS]' + (command_list.length ? ' &lt;command&gt;' : '') + ' [ARGS]';
     if (cli.no_color) {
-        console.error(&#x27;Usage:\n  &#x27; + usage);
-        console.error(&#x27;Options: &#x27;);
+        console.error('Usage:\n  ' + usage);
+        console.error('Options: ');
     } else {
-        console.error(&#x27;\x1b[1mUsage\x1b[0m:\n  &#x27; + usage);
-        console.error(&#x27;\n\x1b[1mOptions\x1b[0m: &#x27;);
+        console.error('\x1b[1mUsage\x1b[0m:\n  ' + usage);
+        console.error('\n\x1b[1mOptions\x1b[0m: ');
     }
     for (var opt in opt_list) {
 
@@ -1916,86 +1909,86 @@ case &#x27;bool&#x27;: case &#x27;boolean&#x27;: case &#x27;on&#x27;:
 
         //Parse opt_list
         desc = opt_list[opt][1].trim();
-        type = opt_list[opt].length &#x3e;= 3 ? opt_list[opt][2] : null;
+        type = opt_list[opt].length &gt;= 3 ? opt_list[opt][2] : null;
         optional = opt_list[opt].length === 4 ? opt_list[opt][3] : null;
 
         //Build usage line
         if (short === long) {
             if (short.length === 1) {
-                line = &#x27;  -&#x27; + short;
+                line = '  -' + short;
             } else {
-                line = &#x27;      --&#x27; + long;
+                line = '      --' + long;
             }
         } else if (short) {
-            line = &#x27;  -&#x27; + short + &#x27;, --&#x27; + long;
+            line = '  -' + short + ', --' + long;
         } else {
-            line = &#x27;      --&#x27; + long;
+            line = '      --' + long;
         }
-        line += &#x27; &#x27;;
+        line += ' ';
 
         if (type) {
             if (type instanceof Array) {
-                desc += &#x27;. VALUE must be either [&#x27; + type.join(&#x27;|&#x27;) + &#x27;]&#x27;;
-                type = &#x27;VALUE&#x27;;
+                desc += '. VALUE must be either [' + type.join('|') + ']';
+                type = 'VALUE';
             }
             if (type === true || type === 1) {
                 type = long.toUpperCase();
             }
             type = type.toUpperCase();
-            if (type === &#x27;FLOAT&#x27; || type === &#x27;INT&#x27;) {
-                type = &#x27;NUMBER&#x27;;
+            if (type === 'FLOAT' || type === 'INT') {
+                type = 'NUMBER';
             }
-            line += optional ? &#x27;[&#x27; + type + &#x27;]&#x27; : type;
+            line += optional ? '[' + type + ']' : type;
         }
         line = pad(line, switch_pad);
         line += trunc_desc(line, desc);
-        line += optional ? &#x27; (Default is &#x27; + optional + &#x27;)&#x27; : &#x27;&#x27;;
-        console.error(line.replace(&#x27;%s&#x27;, &#x27;%\0s&#x27;));
+        line += optional ? ' (Default is ' + optional + ')' : '';
+        console.error(line.replace('%s', '%\0s'));
 
         seen_opts.push(short);
         seen_opts.push(long);
     }
-    if (enable.timeout &#x26;&#x26; seen_opts.indexOf(&#x27;t&#x27;) === -1 &#x26;&#x26; seen_opts.indexOf(&#x27;timeout&#x27;) === -1) {
-        console.error(pad(&#x27;  -t, --timeout N&#x27;, switch_pad) + &#x27;Exit if the process takes longer than N seconds&#x27;);
+    if (enable.timeout &amp;&amp; seen_opts.indexOf('t') === -1 &amp;&amp; seen_opts.indexOf('timeout') === -1) {
+        console.error(pad('  -t, --timeout N', switch_pad) + 'Exit if the process takes longer than N seconds');
     }
     if (enable.status) {
-        if (seen_opts.indexOf(&#x27;k&#x27;) === -1 &#x26;&#x26; seen_opts.indexOf(&#x27;no-color&#x27;) === -1) {
-            console.error(pad(&#x27;  -k, --no-color&#x27;, switch_pad) + &#x27;Omit color from output&#x27;);
+        if (seen_opts.indexOf('k') === -1 &amp;&amp; seen_opts.indexOf('no-color') === -1) {
+            console.error(pad('  -k, --no-color', switch_pad) + 'Omit color from output');
         }
-        if (seen_opts.indexOf(&#x27;debug&#x27;) === -1) {
-            console.error(pad(&#x27;      --debug&#x27;, switch_pad) + &#x27;Show debug information&#x27;);
+        if (seen_opts.indexOf('debug') === -1) {
+            console.error(pad('      --debug', switch_pad) + 'Show debug information');
         }
     }
-    if (enable.catchall &#x26;&#x26; seen_opts.indexOf(&#x27;c&#x27;) === -1 &#x26;&#x26; seen_opts.indexOf(&#x27;catch&#x27;) === -1) {
-        console.error(pad(&#x27;  -c, --catch&#x27;, switch_pad) + &#x27;Catch unanticipated errors&#x27;);
+    if (enable.catchall &amp;&amp; seen_opts.indexOf('c') === -1 &amp;&amp; seen_opts.indexOf('catch') === -1) {
+        console.error(pad('  -c, --catch', switch_pad) + 'Catch unanticipated errors');
     }
-    if (enable.version &#x26;&#x26; seen_opts.indexOf(&#x27;v&#x27;) === -1 &#x26;&#x26; seen_opts.indexOf(&#x27;version&#x27;) === -1) {
-        console.error(pad(&#x27;  -v, --version&#x27;, switch_pad) + &#x27;Display the current version&#x27;);
+    if (enable.version &amp;&amp; seen_opts.indexOf('v') === -1 &amp;&amp; seen_opts.indexOf('version') === -1) {
+        console.error(pad('  -v, --version', switch_pad) + 'Display the current version');
     }
-    if (enable.help &#x26;&#x26; seen_opts.indexOf(&#x27;h&#x27;) === -1 &#x26;&#x26; seen_opts.indexOf(&#x27;help&#x27;) === -1) {
-        console.error(pad(&#x27;  -h, --help&#x27;, switch_pad) + &#x27;Display help and usage details&#x27;);
+    if (enable.help &amp;&amp; seen_opts.indexOf('h') === -1 &amp;&amp; seen_opts.indexOf('help') === -1) {
+        console.error(pad('  -h, --help', switch_pad) + 'Display help and usage details');
     }
     if (command_list.length) {
-        console.error(&#x27;\n\x1b[1mCommands\x1b[0m: &#x27;);
+        console.error('\n\x1b[1mCommands\x1b[0m: ');
         if (!Array.isArray(commands)) {
             for (var c in commands) {
-                line = &#x27;  &#x27; + pad(c, switch_pad - 2);
+                line = '  ' + pad(c, switch_pad - 2);
                 line += trunc_desc(line, commands[c]);
                 console.e ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-             cli.fatal(&#x27;Unknown opt type &#x22;&#x27; + opt_list[opt][2] + &#x27;&#x22;&#x27;);
+             cli.fatal('Unknown opt type "' + opt_list[opt][2] + '"');
         }
         break;
     }
 }
 if (!seen) {
-    if (enable.help &#x26;&#x26; (o === &#x27;h&#x27; || o === &#x27;help&#x27;)) {
+    if (enable.help &amp;&amp; (o === 'h' || o === 'help')) {
         cli.<span class="apidocCodeKeywordSpan">getUsage</span>();
-    } else if (enable.version &#x26;&#x26; (o === &#x27;v&#x27; || o === &#x27;version&#x27;)) {
+    } else if (enable.version &amp;&amp; (o === 'v' || o === 'version')) {
         if (cli.version == null) {
             cli.parsePackageJson();
         }
-        console.error(cli.app + &#x27; v&#x27; + cli.version);
+        console.error(cli.app + ' v' + cli.version);
         cli.exit();
         break;
 ...</pre></li>
@@ -2011,7 +2004,7 @@ if (!seen) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getValue = function (default_val, validate_func, err_msg) {
-    err_msg = err_msg || cli.getOptError(&#x27;a value&#x27;, &#x27;VALUE&#x27;);
+    err_msg = err_msg || cli.getOptError('a value', 'VALUE');
 
     var value;
 
@@ -2023,15 +2016,15 @@ if (!seen) {
             return curr_val;
         }
 
-        //Grouped short opts aren&#x27;t allowed to have values
+        //Grouped short opts aren't allowed to have values
         if (short_tags.length) {
-            throw &#x27;Short tags&#x27;;
+            throw 'Short tags';
         }
 
-        //If there&#x27;s no args left or the next arg is an opt, return the
+        //If there's no args left or the next arg is an opt, return the
         //default value (if specified) - otherwise fail
-        if (!argv.length || (argv[0].length === 1 &#x26;&#x26; argv[0][0] === &#x27;-&#x27;)) {
-            throw &#x27;No value&#x27;;
+        if (!argv.length || (argv[0].length === 1 &amp;&amp; argv[0][0] === '-')) {
+            throw 'No value';
         }
 
         value = argv.shift();
@@ -2046,7 +2039,7 @@ if (!seen) {
         }
     } catch (e) {
 
-        //The value didn&#x27;t pass the validation/transformation. Unshift the value and
+        //The value didn't pass the validation/transformation. Unshift the value and
         //return the default value (if specified)
         if (value) {
             argv.unshift(value);
@@ -2062,15 +2055,15 @@ if (opt_list[opt][2].toLowerCase) {
     opt_list[opt][2] = opt_list[opt][2].toLowerCase();
 }
 switch (opt_list[opt][2]) {
-case &#x27;string&#x27;: case 1: case true:
+case 'string': case 1: case true:
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getValue</span>(default_val);
     break;
-case &#x27;int&#x27;: case &#x27;number&#x27;: case &#x27;num&#x27;:
-case &#x27;time&#x27;: case &#x27;seconds&#x27;: case &#x27;secs&#x27;: case &#x27;minutes&#x27;: case &#x27;mins&#x27;:
-case &#x27;x&#x27;: case &#x27;n&#x27;:
+case 'int': case 'number': case 'num':
+case 'time': case 'seconds': case 'secs': case 'minutes': case 'mins':
+case 'x': case 'n':
     parsed[opt] = cli.getInt(default_val);
     break;
-case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+case 'date': case 'datetime': case 'date_time':
 ...</pre></li>
     </ul>
 
@@ -2129,7 +2122,7 @@ cli.ok(msg);
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function ok(value, message) {
-  if (!value) fail(value, true, message, &#x27;==&#x27;, assert.ok);
+  if (!value) fail(value, true, message, '==', assert.ok);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -2151,10 +2144,10 @@ cli.ok(msg);
 
     curr_val = null;
 
-    //If we&#x27;re currently in a group of short opts (e.g. -abc), return the next opt
+    //If we're currently in a group of short opts (e.g. -abc), return the next opt
     if (short_tags.length) {
         curr_opt = short_tags.shift();
-        full_opt = &#x27;-&#x27; + curr_opt;
+        full_opt = '-' + curr_opt;
         return curr_opt;
     }
 
@@ -2165,39 +2158,39 @@ cli.ok(msg);
     curr_opt = argv.shift();
 
     //If an escape sequence is found (- or --), subsequent opts are ignored
-    if (curr_opt === &#x27;-&#x27; || curr_opt === &#x27;--&#x27;) {
+    if (curr_opt === '-' || curr_opt === '--') {
         while (argv.length) {
             cli.args.push(argv.shift());
         }
         return false;
     }
 
-    //If the next element in argv isn&#x27;t an opt, add it to the list of args
-    if (curr_opt[0] !== &#x27;-&#x27;) {
+    //If the next element in argv isn't an opt, add it to the list of args
+    if (curr_opt[0] !== '-') {
         cli.args.push(curr_opt);
         return cli.next();
     } else {
         //Check if the opt is short/long
-        is_long = curr_opt[1] === &#x27;-&#x27;;
+        is_long = curr_opt[1] === '-';
         curr_opt = curr_opt.substr(is_long ? 2 : 1);
     }
 
-    //Accept grouped short opts, e.g. -abc =&#x3e; -a -b -c
-    if (!is_long &#x26;&#x26; curr_opt.length &#x3e; 1) {
-        short_tags = curr_opt.split(&#x27;&#x27;);
+    //Accept grouped short opts, e.g. -abc =&gt; -a -b -c
+    if (!is_long &amp;&amp; curr_opt.length &gt; 1) {
+        short_tags = curr_opt.split('');
         return cli.next();
     }
 
     var eq, len;
 
     //Check if the long opt is in the form --option=VALUE
-    if (is_long &#x26;&#x26; (eq = curr_opt.indexOf(&#x27;=&#x27;)) &#x3e;= 0) {
+    if (is_long &amp;&amp; (eq = curr_opt.indexOf('=')) &gt;= 0) {
         curr_val = curr_opt.substr(eq + 1);
         curr_opt = curr_opt.substr(0, eq);
         len = curr_val.length;
         //Allow values to be quoted
-        if ((curr_val[0] === &#x27;&#x22;&#x27; &#x26;&#x26; curr_val[len - 1] === &#x27;&#x22;&#x27;) ||
-            (curr_val[0] === &#x22;&#x27;&#x22; &#x26;&#x26; curr_val[len - 1] === &#x22;&#x27;&#x22;))
+        if ((curr_val[0] === '"' &amp;&amp; curr_val[len - 1] === '"') ||
+            (curr_val[0] === "'" &amp;&amp; curr_val[len - 1] === "'"))
         {
             curr_val = curr_val.substr(1, len-2);
         }
@@ -2207,7 +2200,7 @@ cli.ok(msg);
     }
 
     //Save the opt representation for later
-    full_opt = (is_long ? &#x27;--&#x27; : &#x27;-&#x27;) + curr_opt;
+    full_opt = (is_long ? '--' : '-') + curr_opt;
 
     return curr_opt;
 }</pre></li>
@@ -2216,17 +2209,17 @@ cli.ok(msg);
     return false;
 }
 
-//If the next element in argv isn&#x27;t an opt, add it to the list of args
-if (curr_opt[0] !== &#x27;-&#x27;) {
+//If the next element in argv isn't an opt, add it to the list of args
+if (curr_opt[0] !== '-') {
     cli.args.push(curr_opt);
     return cli.<span class="apidocCodeKeywordSpan">next</span>();
 } else {
     //Check if the opt is short/long
-    is_long = curr_opt[1] === &#x27;-&#x27;;
+    is_long = curr_opt[1] === '-';
     curr_opt = curr_opt.substr(is_long ? 2 : 1);
 }
 
-//Accept grouped short opts, e.g. -abc =&#x3e; -a -b -c
+//Accept grouped short opts, e.g. -abc =&gt; -a -b -c
 ...</pre></li>
     </ul>
 
@@ -2278,7 +2271,7 @@ Enables glob matching of arguments
 
 ```javascript
 #!/usr/bin/env node
-require(&#x27;cli&#x27;).withStdinLines(function(lines, newline) {
+require('cli').withStdinLines(function(lines, newline) {
     this.<span class="apidocCodeKeywordSpan">output</span>(lines.sort().join(newline));
 });
 ```
@@ -2286,7 +2279,7 @@ require(&#x27;cli&#x27;).withStdinLines(function(lines, newline) {
 Try it out
 
 ```bash
-$ ./sort.js &#x3c; input.txt
+$ ./sort.js &lt; input.txt
 ...</pre></li>
     </ul>
 
@@ -2305,7 +2298,7 @@ $ ./sort.js &#x3c; input.txt
     opt_list = opts || {};
     commands = command_def;
     command_list = commands || [];
-    if (commands &#x26;&#x26; !Array.isArray(commands)) {
+    if (commands &amp;&amp; !Array.isArray(commands)) {
         command_list = Object.keys(commands);
     }
     while ((o = cli.next())) {
@@ -2328,9 +2321,9 @@ $ ./sort.js &#x3c; input.txt
                     default_val = opt_list[opt][3];
                 }
                 if (opt_list[opt][2] instanceof Array) {
-                    for (i = 0, l = opt_list[opt][2].length; i &#x3c; l; i++) {
-                        if (typeof opt_list[opt][2][i] === &#x27;number&#x27;) {
-                            opt_list[opt][2][i] += &#x27;&#x27;;
+                    for (i = 0, l = opt_list[opt][2].length; i &lt; l; i++) {
+                        if (typeof opt_list[opt][2][i] === 'number') {
+                            opt_list[opt][2][i] += '';
                         }
                     }
                     parsed[opt] = cli.getArrayValue(opt_list[opt][2], is_long ? null : default_val);
@@ -2340,77 +2333,77 @@ $ ./sort.js &#x3c; input.txt
                     opt_list[opt][2] = opt_list[opt][2].toLowerCase();
                 }
                 switch (opt_list[opt][2]) {
-                case &#x27;string&#x27;: case 1: case true:
+                case 'string': case 1: case true:
                     parsed[opt] = cli.getValue(default_val);
                     break;
-                case &#x27;int&#x27;: case &#x27;number&#x27;: case &#x27;num&#x27;:
-                case &#x27;time&#x27;: case &#x27;seconds&#x27;: case &#x27;secs&#x27;: case &#x27;minutes&#x27;: case &#x27;mins&#x27;:
-                case &#x27;x&#x27;: case &#x27;n&#x27;:
+                case 'int': case 'number': case 'num':
+                case 'time': case 'seconds': case 'secs': case 'minutes': case 'mins':
+                case 'x': case 'n':
                     parsed[opt] = cli.getInt(default_val);
                     break;
-                case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+                case 'date': case 'datetime': case 'date_time':
                     parsed[opt] = cli.getDate(default_val);
                     break;
-                case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+                case 'float': case 'decimal':
                     parsed[opt] = cli.getFloat(default_val);
                     break;
-                case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+                case 'path': case 'file': case 'directory': case 'dir':
                     parsed[opt] = cli.getPath(default_val, opt_list[opt][2]);
                     break;
-                case &#x27;email&#x27;:
+                case 'email':
                     parsed[opt] = cli.getEmail(default_val);
                     break;
-                case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;host&#x27;:
+                case 'url': case 'uri': case 'domain': case 'host':
                     parsed[opt] = cli.getUrl(default_val, opt_list[opt][2]);
                     break;
-                case &#x27;ip&#x27;:
+                case 'ip':
                     parsed[opt] = cli.getIp(default_val);
                     break;
-                case &#x27;bool&#x27;: case &#x27;boolean&#x27;: case &#x27;on&#x27;:
+                case 'bool': case 'boolean': case 'on':
                     parsed[opt] = true;
                     break;
-                case &#x27;false&#x27;: case &#x27;off&#x27;: case false: case 0:
+                case 'false': case 'off': case false: case 0:
                     parsed[opt] = false;
                     break;
                 default:
-                     cli.fatal(&#x27;Unknown opt type &#x22;&#x27; + opt_list[opt][2] + &#x27;&#x22;&#x27;);
+                     cli.fatal('Unknown opt type "' + opt_list[opt][2] + '"');
                 }
                 break;
             }
         }
         if (!seen) {
-            if (enable.help &#x26;&#x26; (o === &#x27;h&#x27; || o === &#x27;help&#x27;)) {
+            if (enable.help &amp;&amp; (o === 'h' || o === 'help')) {
                 cli.getUsage();
-            } else if (enable.version &#x26;&#x26; (o === &#x27;v&#x27; || o === &#x27;version&#x27;)) {
+            } else if (enable.version &amp;&amp; (o === 'v' || o === 'version')) {
                 if (cli.version == null) {
                     cli.parsePackageJson();
                 }
-                console.error(cli.app + &#x27; v&#x27; + cli.version);
+                console.error(cli.app + ' v' + cli.version);
                 cli.exit();
                 break;
-            } else if (enable.catchall &#x26;&#x26; (o === &#x27;c&#x27; || o === &#x27;catch&#x27;)) {
+            } else if (enable.catchall &amp;&amp; (o === 'c' || o === 'catch')) {
                 continue;
-            } else if (enable.status &#x26;&#x26; (o === &#x27;k&#x27; || o === &#x27;no-color&#x27;)) {
-                cli.no_color = (o === &#x27;k&#x27; || o === &#x27;no-color&#x27;);
+            } else if (enable.status &amp;&amp; (o === 'k' || o === 'no-color')) {
+                cli.no_color = (o === 'k' || o === 'no-color');
                 continue;
-            } else if (enable.status &#x26;&#x26; (o === &#x27;debug&#x27;)) {
-                show_debug = o === &#x27;debug&#x27;;
+            } else if (enable.status &amp;&amp; (o === 'debug')) {
+                show_debug = o === 'debug';
                 continue;
             } else ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```bash
-$ ./sort.js &#x3c; input.txt
+$ ./sort.js &lt; input.txt
 ```
 
-Let&#x27;s add support for an `-n` switch to use a numeric sort, and a `-r` switch to reverse output - only 5 extra lines of code
+Let's add support for an `-n` switch to use a numeric sort, and a `-r` switch to reverse output - only 5 extra lines of code
  (!)
 
 ```javascript
-var cli = require(&#x27;cli&#x27;), options = cli.<span class="apidocCodeKeywordSpan">parse</span>();
+var cli = require('cli'), options = cli.<span class="apidocCodeKeywordSpan">parse</span>();
 
 cli.withStdinLines(function(lines, newline) {
 lines.sort(!options.n ? null : function(a, b) {
-    return parseInt(a) &#x3e; parseInt(b);
+    return parseInt(a) &gt; parseInt(b);
 });
 if (options.r) lines.reverse();
 this.output(lines.join(newline));
@@ -2428,12 +2421,12 @@ this.output(lines.join(newline));
     <ul>
     <li>description and source-code<pre class="apidocCodePre">parsePackageJson = function (path) {
     var parse_packagejson = function (path) {
-        var packagejson = JSON.parse(cli.native.fs.readFileSync(path, &#x27;utf8&#x27;));
+        var packagejson = JSON.parse(cli.native.fs.readFileSync(path, 'utf8'));
         cli.version = packagejson.version;
         cli.app = packagejson.name;
     };
     var try_all = function (arr, func, err) {
-        for (var i = 0, l = arr.length; i &#x3c; l; i++) {
+        for (var i = 0, l = arr.length; i &lt; l; i++) {
             try {
                 func(arr[i]);
                 return;
@@ -2449,30 +2442,30 @@ this.output(lines.join(newline));
             return parse_packagejson(path);
         }
         try_all([
-            __dirname + &#x27;/package.json&#x27;,
-            __dirname + &#x27;/../package.json&#x27;,
-            __dirname + &#x27;/../../package.json&#x27;
+            __dirname + '/package.json',
+            __dirname + '/../package.json',
+            __dirname + '/../../package.json'
         ], parse_packagejson);
     } catch (e) {
-        cli.fatal(&#x27;Could not detect &#x27; + cli.app + &#x27; version&#x27;);
+        cli.fatal('Could not detect ' + cli.app + ' version');
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     }
 }
 if (!seen) {
-    if (enable.help &#x26;&#x26; (o === &#x27;h&#x27; || o === &#x27;help&#x27;)) {
+    if (enable.help &amp;&amp; (o === 'h' || o === 'help')) {
         cli.getUsage();
-    } else if (enable.version &#x26;&#x26; (o === &#x27;v&#x27; || o === &#x27;version&#x27;)) {
+    } else if (enable.version &amp;&amp; (o === 'v' || o === 'version')) {
         if (cli.version == null) {
             cli.<span class="apidocCodeKeywordSpan">parsePackageJson</span>();
         }
-        console.error(cli.app + &#x27; v&#x27; + cli.version);
+        console.error(cli.app + ' v' + cli.version);
         cli.exit();
         break;
-    } else if (enable.catchall &#x26;&#x26; (o === &#x27;c&#x27; || o === &#x27;catch&#x27;)) {
+    } else if (enable.catchall &amp;&amp; (o === 'c' || o === 'catch')) {
         continue;
-    } else if (enable.status &#x26;&#x26; (o === &#x27;k&#x27; || o === &#x27;no-color&#x27;)) {
+    } else if (enable.status &amp;&amp; (o === 'k' || o === 'no-color')) {
 ...</pre></li>
     </ul>
 
@@ -2487,59 +2480,59 @@ if (!seen) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">progress = function (progress, decimals, stream) {
     stream = stream || process.stdout;
-    if (progress &#x3c; 0 || progress &#x3e; 1 || isNaN(progress)) return;
+    if (progress &lt; 0 || progress &gt; 1 || isNaN(progress)) return;
     if (!decimals) decimals = 0;
     var now = (new Date()).getTime();
-    if (last_progress_call &#x26;&#x26; (now - last_progress_call) &#x3c; 100 &#x26;&#x26; progress !== 1) {
+    if (last_progress_call &amp;&amp; (now - last_progress_call) &lt; 100 &amp;&amp; progress !== 1) {
         return; //Throttle progress calls
     }
     last_progress_call = now;
 
     var pwr = Math.pow(10, decimals);
     var percentage_as_num = Math.floor(progress * 100 * pwr) / pwr;
-    if (!stream.isTTY &#x26;&#x26; percentage_as_num &#x3c; 100 &#x26;&#x26; percentage_as_num - last_progress_percentage &#x3c; min_progress_increase) {
-        return; //don&#x27;t over-print if not TTY
+    if (!stream.isTTY &amp;&amp; percentage_as_num &lt; 100 &amp;&amp; percentage_as_num - last_progress_percentage &lt; min_progress_increase) {
+        return; //don't over-print if not TTY
     }
     last_progress_percentage = percentage_as_num;
-    var percentage = percentage_as_num + &#x27;%&#x27;;
-    for (var i = 0; i &#x3c; decimals; i++) {
-        percentage += &#x27; &#x27;;
+    var percentage = percentage_as_num + '%';
+    for (var i = 0; i &lt; decimals; i++) {
+        percentage += ' ';
     }
     if (!stream.isTTY) {
-        if (percentage_as_num &#x3c; 100) {
-            stream.write(percentage + &#x27;...&#x27;);
+        if (percentage_as_num &lt; 100) {
+            stream.write(percentage + '...');
         }
         else {
-            stream.write(percentage + &#x27;\n&#x27;);
+            stream.write(percentage + '\n');
             last_progress_percentage = 0;
         }
         return;
     }
     var bar_length = Math.floor(progress_len * progress),
-        str       = &#x27;&#x27;;
-    if (bar_length == 0 &#x26;&#x26; progress &#x3e; 0) {
+        str       = '';
+    if (bar_length == 0 &amp;&amp; progress &gt; 0) {
         bar_length = 1;
     }
-    for (i = 1; i &#x3c;= progress_len; i++) {
-        str += i &#x3c;= bar_length ? &#x27;#&#x27; : &#x27; &#x27;;
+    for (i = 1; i &lt;= progress_len; i++) {
+        str += i &lt;= bar_length ? '#' : ' ';
     }
     stream.clearLine();
-    stream.write(&#x27;[&#x27; + str + &#x27;] &#x27; +  percentage);
+    stream.write('[' + str + '] ' +  percentage);
     if (progress === 1) {
-        stream.write(&#x27;\n&#x27;);
+        stream.write('\n');
     } else {
         stream.cursorTo(0);
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-cli.toType(/a/);              // &#x27;regex&#x27;
-cli.toType(JSON);             // &#x27;json&#x27;
+cli.toType(/a/);              // 'regex'
+cli.toType(JSON);             // 'json'
 ```
 
 To output a progress bar, call
 
 ```javascript
-cli.<span class="apidocCodeKeywordSpan">progress</span>(progress); //Where 0 &#x3c;= progress &#x3c;= 1
+cli.<span class="apidocCodeKeywordSpan">progress</span>(progress); //Where 0 &lt;= progress &lt;= 1
 ```
 
 To spawn a child process, use
@@ -2560,7 +2553,7 @@ cli.exec(cmd, callback); //callback receives the output of the process (split in
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">setApp = function (name, version) {
-    if (name.indexOf(&#x27;package.json&#x27;) !== -1) {
+    if (name.indexOf('package.json') !== -1) {
         cli.parsePackageJson(name);
     } else {
         cli.app = name;
@@ -2597,17 +2590,17 @@ cli.debug(msg);  //Only shown when using --debug
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">setArgv = function (arr, keep_arg0) {
-    if (typeof arr == &#x27;string&#x27;) {
-      arr = arr.split(&#x27; &#x27;);
+    if (typeof arr == 'string') {
+      arr = arr.split(' ');
     } else {
       arr = arr.slice();
     }
     cli.app = arr.shift();
-    // Strip off argv[0] if it&#x27;s a node binary
+    // Strip off argv[0] if it's a node binary
     // So this is still broken and will break if you are calling node through a
-    // symlink, unless you are lucky enough to have it as &#x27;node&#x27; literal. Latter
+    // symlink, unless you are lucky enough to have it as 'node' literal. Latter
     // is a hack, but resolving abspaths/symlinks is an unportable can of worms.
-    if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cli.native.path.basename(cli.app)) !== -1
+    if (!keep_arg0 &amp;&amp; (['node', 'node.exe'].indexOf(cli.native.path.basename(cli.app)) !== -1
             || cli.native.path.basename(process.execPath) === cli.app
             || process.execPath === cli.app)) {
         cli.app = arr.shift();
@@ -2666,17 +2659,17 @@ cli.<span class="apidocCodeKeywordSpan">setArgv</span>(process.argv);
     <li>description and source-code<pre class="apidocCodePre">spinner = function (prefix, end, stream) {
     stream = stream || process.stdout;
     if(!stream.isTTY) {
-        stream.write(prefix + &#x27;\n&#x27;);
+        stream.write(prefix + '\n');
         return;
     }
     if (end) {
         stream.clearLine();
         stream.cursorTo(0);
-        stream.write(prefix + &#x27;\n&#x27;);
+        stream.write(prefix + '\n');
         return clearInterval(spinner_interval);
     }
-    prefix = prefix + &#x27; &#x27; || &#x27;&#x27;;
-    var spinner = [&#x27;-&#x27;,&#x27;\\&#x27;,&#x27;|&#x27;,&#x27;/&#x27;], i = 0, l = spinner.length;
+    prefix = prefix + ' ' || '';
+    var spinner = ['-','\\','|','/'], i = 0, l = spinner.length;
     spinner_interval = setInterval(function () {
         stream.clearLine();
         stream.cursorTo(0);
@@ -2699,37 +2692,37 @@ cli.<span class="apidocCodeKeywordSpan">setArgv</span>(process.argv);
     <li>description and source-code<pre class="apidocCodePre">status = function (msg, type) {
     var pre;
     switch (type) {
-    case &#x27;info&#x27;:
-        pre = cli.no_color ? &#x27;INFO:&#x27; : &#x27;\x1B[33mINFO\x1B[0m:&#x27;;
+    case 'info':
+        pre = cli.no_color ? 'INFO:' : '\x1B[33mINFO\x1B[0m:';
         break;
-    case &#x27;debug&#x27;:
-        pre = cli.no_color ? &#x27;DEBUG:&#x27; : &#x27;\x1B[36mDEBUG\x1B[0m:&#x27;;
+    case 'debug':
+        pre = cli.no_color ? 'DEBUG:' : '\x1B[36mDEBUG\x1B[0m:';
         break;
-    case &#x27;error&#x27;:
-    case &#x27;fatal&#x27;:
-        pre = cli.no_color ? &#x27;ERROR:&#x27; : &#x27;\x1B[31mERROR\x1B[0m:&#x27;;
+    case 'error':
+    case 'fatal':
+        pre = cli.no_color ? 'ERROR:' : '\x1B[31mERROR\x1B[0m:';
         break;
-    case &#x27;ok&#x27;:
-        pre = cli.no_color ? &#x27;OK:&#x27; : &#x27;\x1B[32mOK\x1B[0m:&#x27;;
+    case 'ok':
+        pre = cli.no_color ? 'OK:' : '\x1B[32mOK\x1B[0m:';
         break;
     }
-    msg = pre + &#x27; &#x27; + msg;
-    if (type === &#x27;fatal&#x27;) {
+    msg = pre + ' ' + msg;
+    if (type === 'fatal') {
         console.error(msg);
         return cli.exit(1);
     }
-    if (enable.status &#x26;&#x26; !show_debug &#x26;&#x26; type === &#x27;debug&#x27;) {
+    if (enable.status &amp;&amp; !show_debug &amp;&amp; type === 'debug') {
         return;
     }
     console.error(msg);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-   if (enable.status &#x26;&#x26; !show_debug &#x26;&#x26; type === &#x27;debug&#x27;) {
+   if (enable.status &amp;&amp; !show_debug &amp;&amp; type === 'debug') {
        return;
    }
    console.error(msg);
 };
-[&#x27;info&#x27;,&#x27;error&#x27;,&#x27;ok&#x27;,&#x27;debug&#x27;,&#x27;fatal&#x27;].forEach(function (type) {
+['info','error','ok','debug','fatal'].forEach(function (type) {
    cli[type] = function (msg) {
        cli.<span class="apidocCodeKeywordSpan">status</span>(msg, type);
    };
@@ -2755,18 +2748,18 @@ cli.<span class="apidocCodeKeywordSpan">setArgv</span>(process.argv);
     var type = ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
 
     function isInt(n) {
-        return Number(n) === n &#x26;&#x26; n % 1 === 0;
+        return Number(n) === n &amp;&amp; n % 1 === 0;
     }
 
     function isFloat(n){
-        return n === Number(n) &#x26;&#x26; n % 1 !== 0;
+        return n === Number(n) &amp;&amp; n % 1 !== 0;
     }
 
-    if ( type === &#x27;number&#x27; ) {
+    if ( type === 'number' ) {
         if ( isInt(obj) ) {
-            return &#x27;integer&#x27;;
+            return 'integer';
         } else if ( isFloat(obj) ) {
-            return &#x27;float&#x27;;
+            return 'float';
         }
     }
 
@@ -2782,13 +2775,13 @@ cli.<span class="apidocCodeKeywordSpan">setArgv</span>(process.argv);
 ```javascript
 //cli.<span class="apidocCodeKeywordSpan">toType</span>(object);         If a Built-in type, returns the name of the type as a lower
  cased String
-cli.toType([]);               // &#x27;array&#x27;
-cli.toType(new Date());       // &#x27;date&#x27;
-cli.toType(1);                // &#x27;integer&#x27;
-cli.toType(1.1);              // &#x27;float&#x27;
-cli.toType(Math);             // &#x27;math&#x27;
-cli.toType(/a/);              // &#x27;regex&#x27;
-cli.toType(JSON);             // &#x27;json&#x27;
+cli.toType([]);               // 'array'
+cli.toType(new Date());       // 'date'
+cli.toType(1);                // 'integer'
+cli.toType(1.1);              // 'float'
+cli.toType(Math);             // 'math'
+cli.toType(/a/);              // 'regex'
+cli.toType(JSON);             // 'json'
 ...</pre></li>
     </ul>
 
@@ -2802,34 +2795,34 @@ cli.toType(JSON);             // &#x27;json&#x27;
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">withInput = function (file, encoding, callback) {
-    if (typeof encoding === &#x27;function&#x27;) {
+    if (typeof encoding === 'function') {
         callback = encoding;
-        encoding = &#x27;utf8&#x27;;
-    } else if (typeof file === &#x27;function&#x27;) {
+        encoding = 'utf8';
+    } else if (typeof file === 'function') {
         callback = file;
-        encoding = &#x27;utf8&#x27;;
-        file = &#x27;stdin&#x27;;
+        encoding = 'utf8';
+        file = 'stdin';
     }
-    if (file === &#x27;stdin&#x27;) {
+    if (file === 'stdin') {
         file = process.openStdin();
     } else {
         try {
             file = cli.native.fs.createReadStream(file);
-            file.on(&#x27;error&#x27;, cli.fatal);
+            file.on('error', cli.fatal);
         } catch (e) {
             return cli.fatal(e);
         }
     }
     file.setEncoding(encoding);
-    var lines = [], data = &#x27;&#x27;, eof, sep;
-    file.on(&#x27;data&#x27;, function (chunk) {
+    var lines = [], data = '', eof, sep;
+    file.on('data', function (chunk) {
         if (eof) return;
         data += chunk;
         if (!sep) {
-            if (data.indexOf(&#x27;\r\n&#x27;) !== -1) {
-                sep = &#x27;\r\n&#x27;;
-            } else if (data.indexOf(&#x27;\n&#x27;) !== -1) {
-                sep = &#x27;\n&#x27;;
+            if (data.indexOf('\r\n') !== -1) {
+                sep = '\r\n';
+            } else if (data.indexOf('\n') !== -1) {
+                sep = '\n';
             } else {
                 last_line = data;
                 return;
@@ -2841,10 +2834,10 @@ cli.toType(JSON);             // &#x27;json&#x27;
             callback.apply(cli, [lines.shift(), sep, false]);
         }
     });
-    file.on(&#x27;end&#x27;, function () {
+    file.on('end', function () {
         eof = true;
         if (data.length) {
-            callback.apply(cli, [data, sep || &#x27;&#x27;, false]);
+            callback.apply(cli, [data, sep || '', false]);
         }
         callback.apply(cli, [null, null, true]);
     });
@@ -2878,16 +2871,16 @@ cli.<span class="apidocCodeKeywordSpan">withInput</span>(file, function (line, n
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">withStdin = function (encoding, callback) {
-    if (typeof encoding === &#x27;function&#x27;) {
+    if (typeof encoding === 'function') {
         callback = encoding;
-        encoding = &#x27;utf8&#x27;;
+        encoding = 'utf8';
     }
-    var stream = process.openStdin(), data = &#x27;&#x27;;
+    var stream = process.openStdin(), data = '';
     stream.setEncoding(encoding);
-    stream.on(&#x27;data&#x27;, function (chunk) {
+    stream.on('data', function (chunk) {
         data += chunk;
     });
-    stream.on(&#x27;end&#x27;, function () {
+    stream.on('end', function () {
         callback.apply(cli, [data]);
     });
 }</pre></li>
@@ -2922,7 +2915,7 @@ cli.withInput(file, function (line, newline, eof) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">withStdinLines = function (callback) {
     cli.withStdin(function (data) {
-        var sep = data.indexOf(&#x27;\r\n&#x27;) !== -1 ? &#x27;\r\n&#x27; : &#x27;\n&#x27;;
+        var sep = data.indexOf('\r\n') !== -1 ? '\r\n' : '\n';
         callback.apply(cli, [data.split(sep), sep]);
     });
 }</pre></li>
@@ -2934,7 +2927,7 @@ cli.withInput(file, function (line, newline, eof) {
 
 ```javascript
 #!/usr/bin/env node
-require(&#x27;cli&#x27;).<span class="apidocCodeKeywordSpan">withStdinLines</span>(function(lines, newline) {
+require('cli').<span class="apidocCodeKeywordSpan">withStdinLines</span>(function(lines, newline) {
     this.output(lines.sort().join(newline));
 });
 ```
@@ -2996,12 +2989,12 @@ Try it out
     if (list.length === 0 || list.indexOf(command) !== -1) {
         return command;
     }
-    for (i = 0; i &#x3c; c; i++) {
+    for (i = 0; i &lt; c; i++) {
         tmp_list = [];
         l = list.length;
-        if (l &#x3c;= 1) break;
-        for (j = 0; j &#x3c; l; j++)
-            if (list[j].length &#x3e;= i &#x26;&#x26; list[j][i] === command[i])
+        if (l &lt;= 1) break;
+        for (j = 0; j &lt; l; j++)
+            if (list[j].length &gt;= i &amp;&amp; list[j][i] === command[i])
                 tmp_list.push(list[j]);
         list = tmp_list;
     }
@@ -3009,17 +3002,17 @@ Try it out
     if (l === 1) {
         return list[0];
     } else if (l === 0) {
-        cli.fatal(&#x27;Unknown command &#x22;&#x27; + command + &#x27;&#x22;&#x27; + (enable.help ? &#x27;. Please see --help for more information&#x27; : &#x27;&#x27;));
+        cli.fatal('Unknown command "' + command + '"' + (enable.help ? '. Please see --help for more information' : ''));
     } else {
         list.sort();
-        cli.fatal(&#x27;The command &#x22;&#x27; + command + &#x27;&#x22; is ambiguous and could mean &#x22;&#x27; + list.join(&#x27;&#x22;, &#x22;&#x27;) + &#x27;&#x22;&#x27;);
+        cli.fatal('The command "' + command + '" is ambiguous and could mean "' + list.join('", "') + '"');
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
             if (enable.help) {
                 cli.getUsage();
             } else {
-                cli.fatal(&#x27;A command is required (&#x27; + command_list.join(&#x27;, &#x27;) + &#x27;).&#x27;);
+                cli.fatal('A command is required (' + command_list.join(', ') + ').');
             }
             return cli.exit(1);
         } else {
@@ -3047,18 +3040,18 @@ Try it out
     var defaultStackErrorHandler = function (req, res, err) {
         if (err) {
             console.error(err.stack);
-            res.writeHead(500, {&#x22;Content-Type&#x22;: &#x22;text/plain&#x22;});
-            return res.end(err.stack + &#x22;\n&#x22;);
+            res.writeHead(500, {"Content-Type": "text/plain"});
+            return res.end(err.stack + "\n");
         }
-        res.writeHead(404, {&#x22;Content-Type&#x22;: &#x22;text/plain&#x22;});
-        res.end(&#x22;Not Found\n&#x22;);
+        res.writeHead(404, {"Content-Type": "text/plain"});
+        res.end("Not Found\n");
     };
     var handle, error;
     handle = error = defaultStackErrorHandler;
     var layers = Array.prototype.slice.call(arguments);
 
     //Allow createServer(a,b,c) and createServer([a,b,c])
-    if (layers.length &#x26;&#x26; layers[0] instanceof Array) {
+    if (layers.length &amp;&amp; layers[0] instanceof Array) {
         layers = layers[0];
     }
     layers.reverse().forEach(function (layer) {
@@ -3080,7 +3073,7 @@ Try it out
 }
 
 /**
- * Bind creationix&#x27;s stack (https://github.com/creationix/stack).
+ * Bind creationix's stack (https://github.com/creationix/stack).
  *
  * Create a simple middleware stack by calling:
  *
@@ -3155,7 +3148,7 @@ cli.no_color = true;
  *
  * Methods are chainable - `cli.enable(plugin).disable(plugin2)`.
  *
- * The &#x27;help&#x27; plugin is enabled by default.
+ * The 'help' plugin is enabled by default.
  */
 var enable = {
 help: true,      //Adds -h, --help
@@ -3174,20 +3167,20 @@ help: true,      //Adds -h, --help
     <li>description and source-code<pre class="apidocCodePre">enable = function () {
     Array.prototype.slice.call(arguments).forEach(function (plugin) {
         switch (plugin) {
-        case &#x27;catchall&#x27;:
-            process.on(&#x27;uncaughtException&#x27;, function (err) {
-                cli.error(&#x27;Uncaught exception: &#x27; + (err.msg || err));
+        case 'catchall':
+            process.on('uncaughtException', function (err) {
+                cli.error('Uncaught exception: ' + (err.msg || err));
             });
             break;
-        case &#x27;help&#x27;: case &#x27;version&#x27;: case &#x27;status&#x27;:
-        case &#x27;autocomplete&#x27;: case &#x27;timeout&#x27;:
+        case 'help': case 'version': case 'status':
+        case 'autocomplete': case 'timeout':
             //Just add switches.
             break;
-        case &#x27;glob&#x27;:
-            cli.glob = require(&#x27;glob&#x27;);
+        case 'glob':
+            cli.glob = require('glob');
             break;
         default:
-            cli.fatal(&#x27;Unknown plugin &#x22;&#x27; + plugin + &#x27;&#x22;&#x27;);
+            cli.fatal('Unknown plugin "' + plugin + '"');
             break;
         }
         enable[plugin] = true;
@@ -3195,8 +3188,8 @@ help: true,      //Adds -h, --help
     return cli;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-cli also comes bundled with kof&#x27;s [node-natives](https://github.com/kof/node-natives) (access with cli.native) and creationix
-&#x27; [stack](https://github.com/creationix/stack) (access with cli.createServer)
+cli also comes bundled with kof's [node-natives](https://github.com/kof/node-natives) (access with cli.native) and creationix
+' [stack](https://github.com/creationix/stack) (access with cli.createServer)
 
 ## Plugins
 
@@ -3260,16 +3253,16 @@ cli.ok(msg);
             if (errback) {
                 return errback(err, stdout);
             }
-            return cli.fatal(&#x27;exec() failed\n&#x27; + err);
+            return cli.fatal('exec() failed\n' + err);
         }
         if (callback) {
-            callback(stdout.split(&#x27;\n&#x27;));
+            callback(stdout.split('\n'));
         }
     });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```javascript
-cli.progress(progress); //Where 0 &#x3c;= progress &#x3c;= 1
+cli.progress(progress); //Where 0 &lt;= progress &lt;= 1
 ```
 
 To spawn a child process, use
@@ -3279,8 +3272,8 @@ cli.<span class="apidocCodeKeywordSpan">exec</span>(cmd, callback); //callback r
 )
 ```
 
-cli also comes bundled with kof&#x27;s [node-natives](https://github.com/kof/node-natives) (access with cli.native) and creationix
-&#x27; [stack](https://github.com/creationix/stack) (access with cli.createServer)
+cli also comes bundled with kof's [node-natives](https://github.com/kof/node-natives) (access with cli.native) and creationix
+' [stack](https://github.com/creationix/stack) (access with cli.createServer)
 
 ## Plugins
 
@@ -3311,7 +3304,7 @@ Plugins are a way of adding common opts and can be enabled using
     if (stream.bufferSize === 0) {
       drainCount++;
     } else {
-      stream.write(&#x27;&#x27;, &#x27;utf-8&#x27;, function() {
+      stream.write('', 'utf-8', function() {
         drainCount++;
         tryToExit();
       });
@@ -3324,26 +3317,26 @@ Plugins are a way of adding common opts and can be enabled using
   // In Windows, when run as a Node.js child process, a script utilizing
   // this library might just exit with a 0 exit code, regardless. This code,
   // despite the fact that it looks a bit crazy, appears to fix that.
-  process.on(&#x27;exit&#x27;, function() {
+  process.on('exit', function() {
     process.exit(exitCode);
   });
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-if (enable.help &#x26;&#x26; (o === &#x27;h&#x27; || o === &#x27;help&#x27;)) {
+if (enable.help &amp;&amp; (o === 'h' || o === 'help')) {
     cli.getUsage();
-} else if (enable.version &#x26;&#x26; (o === &#x27;v&#x27; || o === &#x27;version&#x27;)) {
+} else if (enable.version &amp;&amp; (o === 'v' || o === 'version')) {
     if (cli.version == null) {
         cli.parsePackageJson();
     }
-    console.error(cli.app + &#x27; v&#x27; + cli.version);
+    console.error(cli.app + ' v' + cli.version);
     cli.<span class="apidocCodeKeywordSpan">exit</span>();
     break;
-} else if (enable.catchall &#x26;&#x26; (o === &#x27;c&#x27; || o === &#x27;catch&#x27;)) {
+} else if (enable.catchall &amp;&amp; (o === 'c' || o === 'catch')) {
     continue;
-} else if (enable.status &#x26;&#x26; (o === &#x27;k&#x27; || o === &#x27;no-color&#x27;)) {
-    cli.no_color = (o === &#x27;k&#x27; || o === &#x27;no-color&#x27;);
+} else if (enable.status &amp;&amp; (o === 'k' || o === 'no-color')) {
+    cli.no_color = (o === 'k' || o === 'no-color');
     continue;
-} else if (enable.status &#x26;&#x26; (o === &#x27;debug&#x27;)) {
+} else if (enable.status &amp;&amp; (o === 'debug')) {
 ...</pre></li>
     </ul>
 
@@ -3390,17 +3383,17 @@ cli.ok(msg);
     <li>description and source-code<pre class="apidocCodePre">getArrayValue = function (arr, default_val) {
     return cli.getValue(default_val, function (value) {
         if (arr.indexOf(value) === -1) {
-            throw &#x27;Unexpected value&#x27;;
+            throw 'Unexpected value';
         }
         return value;
-    }, cli.getOptError(&#x27;either [&#x27; + arr.join(&#x27;|&#x27;) + &#x27;]&#x27;, &#x27;VALUE&#x27;));
+    }, cli.getOptError('either [' + arr.join('|') + ']', 'VALUE'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 }
 if (opt_list[opt][2] instanceof Array) {
-    for (i = 0, l = opt_list[opt][2].length; i &#x3c; l; i++) {
-        if (typeof opt_list[opt][2][i] === &#x27;number&#x27;) {
-            opt_list[opt][2][i] += &#x27;&#x27;;
+    for (i = 0, l = opt_list[opt][2].length; i &lt; l; i++) {
+        if (typeof opt_list[opt][2][i] === 'number') {
+            opt_list[opt][2][i] += '';
         }
     }
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getArrayValue</span>(opt_list[opt][2], is_long ? null : default_val);
@@ -3410,7 +3403,7 @@ if (opt_list[opt][2].toLowerCase) {
     opt_list[opt][2] = opt_list[opt][2].toLowerCase();
 }
 switch (opt_list[opt][2]) {
-case &#x27;string&#x27;: case 1: case true:
+case 'string': case 1: case true:
 ...</pre></li>
     </ul>
 
@@ -3426,29 +3419,29 @@ case &#x27;string&#x27;: case 1: case true:
     <li>description and source-code<pre class="apidocCodePre">getDate = function (default_val) {
 
     return cli.getValue(default_val, function (value) {
-        if (cli.toType(value) === &#x27;date&#x27;) return value;
+        if (cli.toType(value) === 'date') return value;
         value = new Date(value);
         if ( ! value.getTime() ) {
             throw value.toString();
         }
 
         return value;
-    }, cli.getOptError(&#x27;a date&#x27;, &#x27;DATE&#x27;));
+    }, cli.getOptError('a date', 'DATE'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     break;
-case &#x27;int&#x27;: case &#x27;number&#x27;: case &#x27;num&#x27;:
-case &#x27;time&#x27;: case &#x27;seconds&#x27;: case &#x27;secs&#x27;: case &#x27;minutes&#x27;: case &#x27;mins&#x27;:
-case &#x27;x&#x27;: case &#x27;n&#x27;:
+case 'int': case 'number': case 'num':
+case 'time': case 'seconds': case 'secs': case 'minutes': case 'mins':
+case 'x': case 'n':
     parsed[opt] = cli.getInt(default_val);
     break;
-case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+case 'date': case 'datetime': case 'date_time':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getDate</span>(default_val);
     break;
-case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+case 'float': case 'decimal':
     parsed[opt] = cli.getFloat(default_val);
     break;
-case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+case 'path': case 'file': case 'directory': case 'dir':
     parsed[opt] = cli.getPath(default_val, opt_list[opt][2]);
     break;
 ...</pre></li>
@@ -3465,27 +3458,27 @@ case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getEmail = function (default_val) {
     return cli.getValue(default_val, function (value) {
-        if (!value.match(/^(?:[\w\!\#\$\%\&#x26;\&#x27;\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&#x26;\&#x27;\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a
+        if (!value.match(/^(?:[\w\!\#\$\%\&amp;\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&amp;\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a
 -zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/)) {
-            throw &#x27;Invalid email&#x27;;
+            throw 'Invalid email';
         }
         return value;
-    }, cli.getOptError(&#x27;an email&#x27;, &#x27;EMAIL&#x27;));
+    }, cli.getOptError('an email', 'EMAIL'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+case 'float': case 'decimal':
     parsed[opt] = cli.getFloat(default_val);
     break;
-case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+case 'path': case 'file': case 'directory': case 'dir':
     parsed[opt] = cli.getPath(default_val, opt_list[opt][2]);
     break;
-case &#x27;email&#x27;:
+case 'email':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getEmail</span>(default_val);
     break;
-case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;host&#x27;:
+case 'url': case 'uri': case 'domain': case 'host':
     parsed[opt] = cli.getUrl(default_val, opt_list[opt][2]);
     break;
-case &#x27;ip&#x27;:
+case 'ip':
     parsed[opt] = cli.getIp(default_val);
     break;
 ...</pre></li>
@@ -3503,25 +3496,25 @@ case &#x27;ip&#x27;:
     <li>description and source-code<pre class="apidocCodePre">getFloat = function (default_val) {
     return cli.getValue(default_val, function (value) {
         if (!value.match(/^(?:-?(?:0|[1-9][0-9]*))?(?:\.[0-9]*)?$/)) {
-            throw &#x27;Invalid float&#x27;;
+            throw 'Invalid float';
         }
         return parseFloat(value, 10);
-    }, cli.getOptError(&#x27;a number&#x27;, &#x27;NUMBER&#x27;));
+    }, cli.getOptError('a number', 'NUMBER'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-case &#x27;x&#x27;: case &#x27;n&#x27;:
+case 'x': case 'n':
     parsed[opt] = cli.getInt(default_val);
     break;
-case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+case 'date': case 'datetime': case 'date_time':
     parsed[opt] = cli.getDate(default_val);
     break;
-case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+case 'float': case 'decimal':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getFloat</span>(default_val);
     break;
-case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+case 'path': case 'file': case 'directory': case 'dir':
     parsed[opt] = cli.getPath(default_val, opt_list[opt][2]);
     break;
-case &#x27;email&#x27;:
+case 'email':
     parsed[opt] = cli.getEmail(default_val);
     break;
 ...</pre></li>
@@ -3538,27 +3531,27 @@ case &#x27;email&#x27;:
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getInt = function (default_val) {
     return cli.getValue(default_val, function (value) {
-        if (typeof value === &#x27;number&#x27;) return value;
+        if (typeof value === 'number') return value;
         if (!value.match(/^(?:-?(?:0|[1-9][0-9]*))$/)) {
-            throw &#x27;Invalid int&#x27;;
+            throw 'Invalid int';
         }
         return parseInt(value);
-    }, cli.getOptError(&#x27;a number&#x27;, &#x27;NUMBER&#x27;));
+    }, cli.getOptError('a number', 'NUMBER'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 switch (opt_list[opt][2]) {
-case &#x27;string&#x27;: case 1: case true:
+case 'string': case 1: case true:
     parsed[opt] = cli.getValue(default_val);
     break;
-case &#x27;int&#x27;: case &#x27;number&#x27;: case &#x27;num&#x27;:
-case &#x27;time&#x27;: case &#x27;seconds&#x27;: case &#x27;secs&#x27;: case &#x27;minutes&#x27;: case &#x27;mins&#x27;:
-case &#x27;x&#x27;: case &#x27;n&#x27;:
+case 'int': case 'number': case 'num':
+case 'time': case 'seconds': case 'secs': case 'minutes': case 'mins':
+case 'x': case 'n':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getInt</span>(default_val);
     break;
-case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+case 'date': case 'datetime': case 'date_time':
     parsed[opt] = cli.getDate(default_val);
     break;
-case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+case 'float': case 'decimal':
     parsed[opt] = cli.getFloat(default_val);
     break;
 ...</pre></li>
@@ -3576,25 +3569,25 @@ case &#x27;float&#x27;: case &#x27;decimal&#x27;:
     <li>description and source-code<pre class="apidocCodePre">getIp = function (default_val) {
     return cli.getValue(default_val, function (value) {
         if (!value.match(/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/)) {
-            throw &#x27;Invalid IP&#x27;;
+            throw 'Invalid IP';
         }
         return value;
-    }, cli.getOptError(&#x27;an IP&#x27;, &#x27;IP&#x27;));
+    }, cli.getOptError('an IP', 'IP'));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-case &#x27;email&#x27;:
+case 'email':
     parsed[opt] = cli.getEmail(default_val);
     break;
-case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;host&#x27;:
+case 'url': case 'uri': case 'domain': case 'host':
     parsed[opt] = cli.getUrl(default_val, opt_list[opt][2]);
     break;
-case &#x27;ip&#x27;:
+case 'ip':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getIp</span>(default_val);
     break;
-case &#x27;bool&#x27;: case &#x27;boolean&#x27;: case &#x27;on&#x27;:
+case 'bool': case 'boolean': case 'on':
     parsed[opt] = true;
     break;
-case &#x27;false&#x27;: case &#x27;off&#x27;: case false: case 0:
+case 'false': case 'off': case false: case 0:
     parsed[opt] = false;
     break;
 ...</pre></li>
@@ -3610,8 +3603,8 @@ case &#x27;false&#x27;: case &#x27;off&#x27;: case false: case 0:
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getOptError = function (expects, type) {
-    var err = full_opt + &#x27; expects &#x27; + expects
-            + &#x27;. Use `&#x27; + cli.app + &#x27; &#x27; + full_opt + (is_long ? &#x27;=&#x27; : &#x27; &#x27;) + type + &#x27;`&#x27;;
+    var err = full_opt + ' expects ' + expects
+            + '. Use `' + cli.app + ' ' + full_opt + (is_long ? '=' : ' ') + type + '`';
     return err;
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
@@ -3622,7 +3615,7 @@ case &#x27;false&#x27;: case &#x27;off&#x27;: case false: case 0:
  * @api public
  */
 cli.getValue = function (default_val, validate_func, err_msg) {
-err_msg = err_msg || cli.<span class="apidocCodeKeywordSpan">getOptError</span>(&#x27;a value&#x27;, &#x27;VALUE&#x27;);
+err_msg = err_msg || cli.<span class="apidocCodeKeywordSpan">getOptError</span>('a value', 'VALUE');
 
 var value;
 
@@ -3643,28 +3636,28 @@ try {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getPath = function (default_val, identifier) {
-    identifier = identifier || &#x27;path&#x27;;
+    identifier = identifier || 'path';
     return cli.getValue(default_val, function (value) {
         if (value.match(/[?*;{}]/)) {
-            throw &#x27;Invalid path&#x27;;
+            throw 'Invalid path';
         }
         return value;
-    }, cli.getOptError(&#x27;a &#x27; + identifier, identifier.toUpperCase()));
+    }, cli.getOptError('a ' + identifier, identifier.toUpperCase()));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+case 'date': case 'datetime': case 'date_time':
     parsed[opt] = cli.getDate(default_val);
     break;
-case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+case 'float': case 'decimal':
     parsed[opt] = cli.getFloat(default_val);
     break;
-case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+case 'path': case 'file': case 'directory': case 'dir':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getPath</span>(default_val, opt_list[opt][2]);
     break;
-case &#x27;email&#x27;:
+case 'email':
     parsed[opt] = cli.getEmail(default_val);
     break;
-case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;host&#x27;:
+case 'url': case 'uri': case 'domain': case 'host':
     parsed[opt] = cli.getUrl(default_val, opt_list[opt][2]);
     break;
 ...</pre></li>
@@ -3680,29 +3673,29 @@ case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getUrl = function (default_val, identifier) {
-    identifier = identifier || &#x27;url&#x27;;
+    identifier = identifier || 'url';
     return cli.getValue(default_val, function (value) {
         if (!value.match(/^(?:(?:ht|f)tp(?:s?)\:\/\/|~\/|\/)?(?:\w+:\w+@)?((?:(?:[-\w\d{1-3}]+\.)+(?:com|org|net|gov|mil|biz|info
-|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2})?)|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&#x26;(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/i)) {
-            throw &#x27;Invalid URL&#x27;;
+|mobi|name|aero|jobs|edu|co\.uk|ac\.uk|it|fr|tv|museum|asia|local|travel|[a-z]{2})?)|((\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)(\.(\b25[0-5]\b|\b[2][0-4][0-9]\b|\b[0-1]?[0-9]?[0-9]\b)){3}))(?::[\d]{1,5})?(?:(?:(?:\/(?:[-\w~!$+|.,=]|%[a-f\d]{2})+)+|\/)+|\?|#)?(?:(?:\?(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)(?:&amp;(?:[-\w~!$+|.,*:]|%[a-f\d{2}])+=?(?:[-\w~!$+|.,*:=]|%[a-f\d]{2})*)*)*(?:#(?:[-\w~!$ |\/.,*:;=]|%[a-f\d]{2})*)?$/i)) {
+            throw 'Invalid URL';
         }
         return value;
-    }, cli.getOptError(&#x27;a &#x27; + identifier, identifier.toUpperCase()));
+    }, cli.getOptError('a ' + identifier, identifier.toUpperCase()));
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+case 'path': case 'file': case 'directory': case 'dir':
     parsed[opt] = cli.getPath(default_val, opt_list[opt][2]);
     break;
-case &#x27;email&#x27;:
+case 'email':
     parsed[opt] = cli.getEmail(default_val);
     break;
-case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;host&#x27;:
+case 'url': case 'uri': case 'domain': case 'host':
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getUrl</span>(default_val, opt_list[opt][2]);
     break;
-case &#x27;ip&#x27;:
+case 'ip':
     parsed[opt] = cli.getIp(default_val);
     break;
-case &#x27;bool&#x27;: case &#x27;boolean&#x27;: case &#x27;on&#x27;:
+case 'bool': case 'boolean': case 'on':
     parsed[opt] = true;
     break;
 ...</pre></li>
@@ -3724,29 +3717,29 @@ case &#x27;bool&#x27;: case &#x27;boolean&#x27;: case &#x27;on&#x27;:
     var trunc_desc = function (pref, desc, len) {
         var pref_len = pref.length,
             desc_len = cli.width - pref_len,
-            truncated = &#x27;&#x27;;
-        if (desc.length &#x3c;= desc_len) {
+            truncated = '';
+        if (desc.length &lt;= desc_len) {
             return desc;
         }
-        var desc_words = (desc+&#x27;&#x27;).split(&#x27; &#x27;), chars = 0, word;
+        var desc_words = (desc+'').split(' '), chars = 0, word;
         while (desc_words.length) {
-            truncated += (word = desc_words.shift()) + &#x27; &#x27;;
+            truncated += (word = desc_words.shift()) + ' ';
             chars += word.length;
-            if (desc_words.length &#x26;&#x26; chars + desc_words[0].length &#x3e; desc_len) {
-                truncated += &#x27;\n&#x27; + pad(pref_len);
+            if (desc_words.length &amp;&amp; chars + desc_words[0].length &gt; desc_len) {
+                truncated += '\n' + pad(pref_len);
                 chars = 0;
             }
         }
         return truncated;
     };
 
-    usage = usage || cli.app + &#x27; [OPTIONS]&#x27; + (command_list.length ? &#x27; &#x3c;command&#x3e;&#x27; : &#x27;&#x27;) + &#x27; [ARGS]&#x27;;
+    usage = usage || cli.app + ' [OPTIONS]' + (command_list.length ? ' &lt;command&gt;' : '') + ' [ARGS]';
     if (cli.no_color) {
-        console.error(&#x27;Usage:\n  &#x27; + usage);
-        console.error(&#x27;Options: &#x27;);
+        console.error('Usage:\n  ' + usage);
+        console.error('Options: ');
     } else {
-        console.error(&#x27;\x1b[1mUsage\x1b[0m:\n  &#x27; + usage);
-        console.error(&#x27;\n\x1b[1mOptions\x1b[0m: &#x27;);
+        console.error('\x1b[1mUsage\x1b[0m:\n  ' + usage);
+        console.error('\n\x1b[1mOptions\x1b[0m: ');
     }
     for (var opt in opt_list) {
 
@@ -3760,86 +3753,86 @@ case &#x27;bool&#x27;: case &#x27;boolean&#x27;: case &#x27;on&#x27;:
 
         //Parse opt_list
         desc = opt_list[opt][1].trim();
-        type = opt_list[opt].length &#x3e;= 3 ? opt_list[opt][2] : null;
+        type = opt_list[opt].length &gt;= 3 ? opt_list[opt][2] : null;
         optional = opt_list[opt].length === 4 ? opt_list[opt][3] : null;
 
         //Build usage line
         if (short === long) {
             if (short.length === 1) {
-                line = &#x27;  -&#x27; + short;
+                line = '  -' + short;
             } else {
-                line = &#x27;      --&#x27; + long;
+                line = '      --' + long;
             }
         } else if (short) {
-            line = &#x27;  -&#x27; + short + &#x27;, --&#x27; + long;
+            line = '  -' + short + ', --' + long;
         } else {
-            line = &#x27;      --&#x27; + long;
+            line = '      --' + long;
         }
-        line += &#x27; &#x27;;
+        line += ' ';
 
         if (type) {
             if (type instanceof Array) {
-                desc += &#x27;. VALUE must be either [&#x27; + type.join(&#x27;|&#x27;) + &#x27;]&#x27;;
-                type = &#x27;VALUE&#x27;;
+                desc += '. VALUE must be either [' + type.join('|') + ']';
+                type = 'VALUE';
             }
             if (type === true || type === 1) {
                 type = long.toUpperCase();
             }
             type = type.toUpperCase();
-            if (type === &#x27;FLOAT&#x27; || type === &#x27;INT&#x27;) {
-                type = &#x27;NUMBER&#x27;;
+            if (type === 'FLOAT' || type === 'INT') {
+                type = 'NUMBER';
             }
-            line += optional ? &#x27;[&#x27; + type + &#x27;]&#x27; : type;
+            line += optional ? '[' + type + ']' : type;
         }
         line = pad(line, switch_pad);
         line += trunc_desc(line, desc);
-        line += optional ? &#x27; (Default is &#x27; + optional + &#x27;)&#x27; : &#x27;&#x27;;
-        console.error(line.replace(&#x27;%s&#x27;, &#x27;%\0s&#x27;));
+        line += optional ? ' (Default is ' + optional + ')' : '';
+        console.error(line.replace('%s', '%\0s'));
 
         seen_opts.push(short);
         seen_opts.push(long);
     }
-    if (enable.timeout &#x26;&#x26; seen_opts.indexOf(&#x27;t&#x27;) === -1 &#x26;&#x26; seen_opts.indexOf(&#x27;timeout&#x27;) === -1) {
-        console.error(pad(&#x27;  -t, --timeout N&#x27;, switch_pad) + &#x27;Exit if the process takes longer than N seconds&#x27;);
+    if (enable.timeout &amp;&amp; seen_opts.indexOf('t') === -1 &amp;&amp; seen_opts.indexOf('timeout') === -1) {
+        console.error(pad('  -t, --timeout N', switch_pad) + 'Exit if the process takes longer than N seconds');
     }
     if (enable.status) {
-        if (seen_opts.indexOf(&#x27;k&#x27;) === -1 &#x26;&#x26; seen_opts.indexOf(&#x27;no-color&#x27;) === -1) {
-            console.error(pad(&#x27;  -k, --no-color&#x27;, switch_pad) + &#x27;Omit color from output&#x27;);
+        if (seen_opts.indexOf('k') === -1 &amp;&amp; seen_opts.indexOf('no-color') === -1) {
+            console.error(pad('  -k, --no-color', switch_pad) + 'Omit color from output');
         }
-        if (seen_opts.indexOf(&#x27;debug&#x27;) === -1) {
-            console.error(pad(&#x27;      --debug&#x27;, switch_pad) + &#x27;Show debug information&#x27;);
+        if (seen_opts.indexOf('debug') === -1) {
+            console.error(pad('      --debug', switch_pad) + 'Show debug information');
         }
     }
-    if (enable.catchall &#x26;&#x26; seen_opts.indexOf(&#x27;c&#x27;) === -1 &#x26;&#x26; seen_opts.indexOf(&#x27;catch&#x27;) === -1) {
-        console.error(pad(&#x27;  -c, --catch&#x27;, switch_pad) + &#x27;Catch unanticipated errors&#x27;);
+    if (enable.catchall &amp;&amp; seen_opts.indexOf('c') === -1 &amp;&amp; seen_opts.indexOf('catch') === -1) {
+        console.error(pad('  -c, --catch', switch_pad) + 'Catch unanticipated errors');
     }
-    if (enable.version &#x26;&#x26; seen_opts.indexOf(&#x27;v&#x27;) === -1 &#x26;&#x26; seen_opts.indexOf(&#x27;version&#x27;) === -1) {
-        console.error(pad(&#x27;  -v, --version&#x27;, switch_pad) + &#x27;Display the current version&#x27;);
+    if (enable.version &amp;&amp; seen_opts.indexOf('v') === -1 &amp;&amp; seen_opts.indexOf('version') === -1) {
+        console.error(pad('  -v, --version', switch_pad) + 'Display the current version');
     }
-    if (enable.help &#x26;&#x26; seen_opts.indexOf(&#x27;h&#x27;) === -1 &#x26;&#x26; seen_opts.indexOf(&#x27;help&#x27;) === -1) {
-        console.error(pad(&#x27;  -h, --help&#x27;, switch_pad) + &#x27;Display help and usage details&#x27;);
+    if (enable.help &amp;&amp; seen_opts.indexOf('h') === -1 &amp;&amp; seen_opts.indexOf('help') === -1) {
+        console.error(pad('  -h, --help', switch_pad) + 'Display help and usage details');
     }
     if (command_list.length) {
-        console.error(&#x27;\n\x1b[1mCommands\x1b[0m: &#x27;);
+        console.error('\n\x1b[1mCommands\x1b[0m: ');
         if (!Array.isArray(commands)) {
             for (var c in commands) {
-                line = &#x27;  &#x27; + pad(c, switch_pad - 2);
+                line = '  ' + pad(c, switch_pad - 2);
                 line += trunc_desc(line, commands[c]);
                 console.e ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-             cli.fatal(&#x27;Unknown opt type &#x22;&#x27; + opt_list[opt][2] + &#x27;&#x22;&#x27;);
+             cli.fatal('Unknown opt type "' + opt_list[opt][2] + '"');
         }
         break;
     }
 }
 if (!seen) {
-    if (enable.help &#x26;&#x26; (o === &#x27;h&#x27; || o === &#x27;help&#x27;)) {
+    if (enable.help &amp;&amp; (o === 'h' || o === 'help')) {
         cli.<span class="apidocCodeKeywordSpan">getUsage</span>();
-    } else if (enable.version &#x26;&#x26; (o === &#x27;v&#x27; || o === &#x27;version&#x27;)) {
+    } else if (enable.version &amp;&amp; (o === 'v' || o === 'version')) {
         if (cli.version == null) {
             cli.parsePackageJson();
         }
-        console.error(cli.app + &#x27; v&#x27; + cli.version);
+        console.error(cli.app + ' v' + cli.version);
         cli.exit();
         break;
 ...</pre></li>
@@ -3855,7 +3848,7 @@ if (!seen) {
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">getValue = function (default_val, validate_func, err_msg) {
-    err_msg = err_msg || cli.getOptError(&#x27;a value&#x27;, &#x27;VALUE&#x27;);
+    err_msg = err_msg || cli.getOptError('a value', 'VALUE');
 
     var value;
 
@@ -3867,15 +3860,15 @@ if (!seen) {
             return curr_val;
         }
 
-        //Grouped short opts aren&#x27;t allowed to have values
+        //Grouped short opts aren't allowed to have values
         if (short_tags.length) {
-            throw &#x27;Short tags&#x27;;
+            throw 'Short tags';
         }
 
-        //If there&#x27;s no args left or the next arg is an opt, return the
+        //If there's no args left or the next arg is an opt, return the
         //default value (if specified) - otherwise fail
-        if (!argv.length || (argv[0].length === 1 &#x26;&#x26; argv[0][0] === &#x27;-&#x27;)) {
-            throw &#x27;No value&#x27;;
+        if (!argv.length || (argv[0].length === 1 &amp;&amp; argv[0][0] === '-')) {
+            throw 'No value';
         }
 
         value = argv.shift();
@@ -3890,7 +3883,7 @@ if (!seen) {
         }
     } catch (e) {
 
-        //The value didn&#x27;t pass the validation/transformation. Unshift the value and
+        //The value didn't pass the validation/transformation. Unshift the value and
         //return the default value (if specified)
         if (value) {
             argv.unshift(value);
@@ -3906,15 +3899,15 @@ if (opt_list[opt][2].toLowerCase) {
     opt_list[opt][2] = opt_list[opt][2].toLowerCase();
 }
 switch (opt_list[opt][2]) {
-case &#x27;string&#x27;: case 1: case true:
+case 'string': case 1: case true:
     parsed[opt] = cli.<span class="apidocCodeKeywordSpan">getValue</span>(default_val);
     break;
-case &#x27;int&#x27;: case &#x27;number&#x27;: case &#x27;num&#x27;:
-case &#x27;time&#x27;: case &#x27;seconds&#x27;: case &#x27;secs&#x27;: case &#x27;minutes&#x27;: case &#x27;mins&#x27;:
-case &#x27;x&#x27;: case &#x27;n&#x27;:
+case 'int': case 'number': case 'num':
+case 'time': case 'seconds': case 'secs': case 'minutes': case 'mins':
+case 'x': case 'n':
     parsed[opt] = cli.getInt(default_val);
     break;
-case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+case 'date': case 'datetime': case 'date_time':
 ...</pre></li>
     </ul>
 
@@ -3980,10 +3973,10 @@ cli.ok(msg);
 
     curr_val = null;
 
-    //If we&#x27;re currently in a group of short opts (e.g. -abc), return the next opt
+    //If we're currently in a group of short opts (e.g. -abc), return the next opt
     if (short_tags.length) {
         curr_opt = short_tags.shift();
-        full_opt = &#x27;-&#x27; + curr_opt;
+        full_opt = '-' + curr_opt;
         return curr_opt;
     }
 
@@ -3994,39 +3987,39 @@ cli.ok(msg);
     curr_opt = argv.shift();
 
     //If an escape sequence is found (- or --), subsequent opts are ignored
-    if (curr_opt === &#x27;-&#x27; || curr_opt === &#x27;--&#x27;) {
+    if (curr_opt === '-' || curr_opt === '--') {
         while (argv.length) {
             cli.args.push(argv.shift());
         }
         return false;
     }
 
-    //If the next element in argv isn&#x27;t an opt, add it to the list of args
-    if (curr_opt[0] !== &#x27;-&#x27;) {
+    //If the next element in argv isn't an opt, add it to the list of args
+    if (curr_opt[0] !== '-') {
         cli.args.push(curr_opt);
         return cli.next();
     } else {
         //Check if the opt is short/long
-        is_long = curr_opt[1] === &#x27;-&#x27;;
+        is_long = curr_opt[1] === '-';
         curr_opt = curr_opt.substr(is_long ? 2 : 1);
     }
 
-    //Accept grouped short opts, e.g. -abc =&#x3e; -a -b -c
-    if (!is_long &#x26;&#x26; curr_opt.length &#x3e; 1) {
-        short_tags = curr_opt.split(&#x27;&#x27;);
+    //Accept grouped short opts, e.g. -abc =&gt; -a -b -c
+    if (!is_long &amp;&amp; curr_opt.length &gt; 1) {
+        short_tags = curr_opt.split('');
         return cli.next();
     }
 
     var eq, len;
 
     //Check if the long opt is in the form --option=VALUE
-    if (is_long &#x26;&#x26; (eq = curr_opt.indexOf(&#x27;=&#x27;)) &#x3e;= 0) {
+    if (is_long &amp;&amp; (eq = curr_opt.indexOf('=')) &gt;= 0) {
         curr_val = curr_opt.substr(eq + 1);
         curr_opt = curr_opt.substr(0, eq);
         len = curr_val.length;
         //Allow values to be quoted
-        if ((curr_val[0] === &#x27;&#x22;&#x27; &#x26;&#x26; curr_val[len - 1] === &#x27;&#x22;&#x27;) ||
-            (curr_val[0] === &#x22;&#x27;&#x22; &#x26;&#x26; curr_val[len - 1] === &#x22;&#x27;&#x22;))
+        if ((curr_val[0] === '"' &amp;&amp; curr_val[len - 1] === '"') ||
+            (curr_val[0] === "'" &amp;&amp; curr_val[len - 1] === "'"))
         {
             curr_val = curr_val.substr(1, len-2);
         }
@@ -4036,7 +4029,7 @@ cli.ok(msg);
     }
 
     //Save the opt representation for later
-    full_opt = (is_long ? &#x27;--&#x27; : &#x27;-&#x27;) + curr_opt;
+    full_opt = (is_long ? '--' : '-') + curr_opt;
 
     return curr_opt;
 }</pre></li>
@@ -4045,17 +4038,17 @@ cli.ok(msg);
     return false;
 }
 
-//If the next element in argv isn&#x27;t an opt, add it to the list of args
-if (curr_opt[0] !== &#x27;-&#x27;) {
+//If the next element in argv isn't an opt, add it to the list of args
+if (curr_opt[0] !== '-') {
     cli.args.push(curr_opt);
     return cli.<span class="apidocCodeKeywordSpan">next</span>();
 } else {
     //Check if the opt is short/long
-    is_long = curr_opt[1] === &#x27;-&#x27;;
+    is_long = curr_opt[1] === '-';
     curr_opt = curr_opt.substr(is_long ? 2 : 1);
 }
 
-//Accept grouped short opts, e.g. -abc =&#x3e; -a -b -c
+//Accept grouped short opts, e.g. -abc =&gt; -a -b -c
 ...</pre></li>
     </ul>
 
@@ -4107,7 +4100,7 @@ Enables glob matching of arguments
 
 ```javascript
 #!/usr/bin/env node
-require(&#x27;cli&#x27;).withStdinLines(function(lines, newline) {
+require('cli').withStdinLines(function(lines, newline) {
     this.<span class="apidocCodeKeywordSpan">output</span>(lines.sort().join(newline));
 });
 ```
@@ -4115,7 +4108,7 @@ require(&#x27;cli&#x27;).withStdinLines(function(lines, newline) {
 Try it out
 
 ```bash
-$ ./sort.js &#x3c; input.txt
+$ ./sort.js &lt; input.txt
 ...</pre></li>
     </ul>
 
@@ -4134,7 +4127,7 @@ $ ./sort.js &#x3c; input.txt
     opt_list = opts || {};
     commands = command_def;
     command_list = commands || [];
-    if (commands &#x26;&#x26; !Array.isArray(commands)) {
+    if (commands &amp;&amp; !Array.isArray(commands)) {
         command_list = Object.keys(commands);
     }
     while ((o = cli.next())) {
@@ -4157,9 +4150,9 @@ $ ./sort.js &#x3c; input.txt
                     default_val = opt_list[opt][3];
                 }
                 if (opt_list[opt][2] instanceof Array) {
-                    for (i = 0, l = opt_list[opt][2].length; i &#x3c; l; i++) {
-                        if (typeof opt_list[opt][2][i] === &#x27;number&#x27;) {
-                            opt_list[opt][2][i] += &#x27;&#x27;;
+                    for (i = 0, l = opt_list[opt][2].length; i &lt; l; i++) {
+                        if (typeof opt_list[opt][2][i] === 'number') {
+                            opt_list[opt][2][i] += '';
                         }
                     }
                     parsed[opt] = cli.getArrayValue(opt_list[opt][2], is_long ? null : default_val);
@@ -4169,77 +4162,77 @@ $ ./sort.js &#x3c; input.txt
                     opt_list[opt][2] = opt_list[opt][2].toLowerCase();
                 }
                 switch (opt_list[opt][2]) {
-                case &#x27;string&#x27;: case 1: case true:
+                case 'string': case 1: case true:
                     parsed[opt] = cli.getValue(default_val);
                     break;
-                case &#x27;int&#x27;: case &#x27;number&#x27;: case &#x27;num&#x27;:
-                case &#x27;time&#x27;: case &#x27;seconds&#x27;: case &#x27;secs&#x27;: case &#x27;minutes&#x27;: case &#x27;mins&#x27;:
-                case &#x27;x&#x27;: case &#x27;n&#x27;:
+                case 'int': case 'number': case 'num':
+                case 'time': case 'seconds': case 'secs': case 'minutes': case 'mins':
+                case 'x': case 'n':
                     parsed[opt] = cli.getInt(default_val);
                     break;
-                case &#x27;date&#x27;: case &#x27;datetime&#x27;: case &#x27;date_time&#x27;:
+                case 'date': case 'datetime': case 'date_time':
                     parsed[opt] = cli.getDate(default_val);
                     break;
-                case &#x27;float&#x27;: case &#x27;decimal&#x27;:
+                case 'float': case 'decimal':
                     parsed[opt] = cli.getFloat(default_val);
                     break;
-                case &#x27;path&#x27;: case &#x27;file&#x27;: case &#x27;directory&#x27;: case &#x27;dir&#x27;:
+                case 'path': case 'file': case 'directory': case 'dir':
                     parsed[opt] = cli.getPath(default_val, opt_list[opt][2]);
                     break;
-                case &#x27;email&#x27;:
+                case 'email':
                     parsed[opt] = cli.getEmail(default_val);
                     break;
-                case &#x27;url&#x27;: case &#x27;uri&#x27;: case &#x27;domain&#x27;: case &#x27;host&#x27;:
+                case 'url': case 'uri': case 'domain': case 'host':
                     parsed[opt] = cli.getUrl(default_val, opt_list[opt][2]);
                     break;
-                case &#x27;ip&#x27;:
+                case 'ip':
                     parsed[opt] = cli.getIp(default_val);
                     break;
-                case &#x27;bool&#x27;: case &#x27;boolean&#x27;: case &#x27;on&#x27;:
+                case 'bool': case 'boolean': case 'on':
                     parsed[opt] = true;
                     break;
-                case &#x27;false&#x27;: case &#x27;off&#x27;: case false: case 0:
+                case 'false': case 'off': case false: case 0:
                     parsed[opt] = false;
                     break;
                 default:
-                     cli.fatal(&#x27;Unknown opt type &#x22;&#x27; + opt_list[opt][2] + &#x27;&#x22;&#x27;);
+                     cli.fatal('Unknown opt type "' + opt_list[opt][2] + '"');
                 }
                 break;
             }
         }
         if (!seen) {
-            if (enable.help &#x26;&#x26; (o === &#x27;h&#x27; || o === &#x27;help&#x27;)) {
+            if (enable.help &amp;&amp; (o === 'h' || o === 'help')) {
                 cli.getUsage();
-            } else if (enable.version &#x26;&#x26; (o === &#x27;v&#x27; || o === &#x27;version&#x27;)) {
+            } else if (enable.version &amp;&amp; (o === 'v' || o === 'version')) {
                 if (cli.version == null) {
                     cli.parsePackageJson();
                 }
-                console.error(cli.app + &#x27; v&#x27; + cli.version);
+                console.error(cli.app + ' v' + cli.version);
                 cli.exit();
                 break;
-            } else if (enable.catchall &#x26;&#x26; (o === &#x27;c&#x27; || o === &#x27;catch&#x27;)) {
+            } else if (enable.catchall &amp;&amp; (o === 'c' || o === 'catch')) {
                 continue;
-            } else if (enable.status &#x26;&#x26; (o === &#x27;k&#x27; || o === &#x27;no-color&#x27;)) {
-                cli.no_color = (o === &#x27;k&#x27; || o === &#x27;no-color&#x27;);
+            } else if (enable.status &amp;&amp; (o === 'k' || o === 'no-color')) {
+                cli.no_color = (o === 'k' || o === 'no-color');
                 continue;
-            } else if (enable.status &#x26;&#x26; (o === &#x27;debug&#x27;)) {
-                show_debug = o === &#x27;debug&#x27;;
+            } else if (enable.status &amp;&amp; (o === 'debug')) {
+                show_debug = o === 'debug';
                 continue;
             } else ...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```bash
-$ ./sort.js &#x3c; input.txt
+$ ./sort.js &lt; input.txt
 ```
 
-Let&#x27;s add support for an `-n` switch to use a numeric sort, and a `-r` switch to reverse output - only 5 extra lines of code
+Let's add support for an `-n` switch to use a numeric sort, and a `-r` switch to reverse output - only 5 extra lines of code
  (!)
 
 ```javascript
-var cli = require(&#x27;cli&#x27;), options = cli.<span class="apidocCodeKeywordSpan">parse</span>();
+var cli = require('cli'), options = cli.<span class="apidocCodeKeywordSpan">parse</span>();
 
 cli.withStdinLines(function(lines, newline) {
 lines.sort(!options.n ? null : function(a, b) {
-    return parseInt(a) &#x3e; parseInt(b);
+    return parseInt(a) &gt; parseInt(b);
 });
 if (options.r) lines.reverse();
 this.output(lines.join(newline));
@@ -4257,12 +4250,12 @@ this.output(lines.join(newline));
     <ul>
     <li>description and source-code<pre class="apidocCodePre">parsePackageJson = function (path) {
     var parse_packagejson = function (path) {
-        var packagejson = JSON.parse(cli.native.fs.readFileSync(path, &#x27;utf8&#x27;));
+        var packagejson = JSON.parse(cli.native.fs.readFileSync(path, 'utf8'));
         cli.version = packagejson.version;
         cli.app = packagejson.name;
     };
     var try_all = function (arr, func, err) {
-        for (var i = 0, l = arr.length; i &#x3c; l; i++) {
+        for (var i = 0, l = arr.length; i &lt; l; i++) {
             try {
                 func(arr[i]);
                 return;
@@ -4278,30 +4271,30 @@ this.output(lines.join(newline));
             return parse_packagejson(path);
         }
         try_all([
-            __dirname + &#x27;/package.json&#x27;,
-            __dirname + &#x27;/../package.json&#x27;,
-            __dirname + &#x27;/../../package.json&#x27;
+            __dirname + '/package.json',
+            __dirname + '/../package.json',
+            __dirname + '/../../package.json'
         ], parse_packagejson);
     } catch (e) {
-        cli.fatal(&#x27;Could not detect &#x27; + cli.app + &#x27; version&#x27;);
+        cli.fatal('Could not detect ' + cli.app + ' version');
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     }
 }
 if (!seen) {
-    if (enable.help &#x26;&#x26; (o === &#x27;h&#x27; || o === &#x27;help&#x27;)) {
+    if (enable.help &amp;&amp; (o === 'h' || o === 'help')) {
         cli.getUsage();
-    } else if (enable.version &#x26;&#x26; (o === &#x27;v&#x27; || o === &#x27;version&#x27;)) {
+    } else if (enable.version &amp;&amp; (o === 'v' || o === 'version')) {
         if (cli.version == null) {
             cli.<span class="apidocCodeKeywordSpan">parsePackageJson</span>();
         }
-        console.error(cli.app + &#x27; v&#x27; + cli.version);
+        console.error(cli.app + ' v' + cli.version);
         cli.exit();
         break;
-    } else if (enable.catchall &#x26;&#x26; (o === &#x27;c&#x27; || o === &#x27;catch&#x27;)) {
+    } else if (enable.catchall &amp;&amp; (o === 'c' || o === 'catch')) {
         continue;
-    } else if (enable.status &#x26;&#x26; (o === &#x27;k&#x27; || o === &#x27;no-color&#x27;)) {
+    } else if (enable.status &amp;&amp; (o === 'k' || o === 'no-color')) {
 ...</pre></li>
     </ul>
 
@@ -4316,59 +4309,59 @@ if (!seen) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">progress = function (progress, decimals, stream) {
     stream = stream || process.stdout;
-    if (progress &#x3c; 0 || progress &#x3e; 1 || isNaN(progress)) return;
+    if (progress &lt; 0 || progress &gt; 1 || isNaN(progress)) return;
     if (!decimals) decimals = 0;
     var now = (new Date()).getTime();
-    if (last_progress_call &#x26;&#x26; (now - last_progress_call) &#x3c; 100 &#x26;&#x26; progress !== 1) {
+    if (last_progress_call &amp;&amp; (now - last_progress_call) &lt; 100 &amp;&amp; progress !== 1) {
         return; //Throttle progress calls
     }
     last_progress_call = now;
 
     var pwr = Math.pow(10, decimals);
     var percentage_as_num = Math.floor(progress * 100 * pwr) / pwr;
-    if (!stream.isTTY &#x26;&#x26; percentage_as_num &#x3c; 100 &#x26;&#x26; percentage_as_num - last_progress_percentage &#x3c; min_progress_increase) {
-        return; //don&#x27;t over-print if not TTY
+    if (!stream.isTTY &amp;&amp; percentage_as_num &lt; 100 &amp;&amp; percentage_as_num - last_progress_percentage &lt; min_progress_increase) {
+        return; //don't over-print if not TTY
     }
     last_progress_percentage = percentage_as_num;
-    var percentage = percentage_as_num + &#x27;%&#x27;;
-    for (var i = 0; i &#x3c; decimals; i++) {
-        percentage += &#x27; &#x27;;
+    var percentage = percentage_as_num + '%';
+    for (var i = 0; i &lt; decimals; i++) {
+        percentage += ' ';
     }
     if (!stream.isTTY) {
-        if (percentage_as_num &#x3c; 100) {
-            stream.write(percentage + &#x27;...&#x27;);
+        if (percentage_as_num &lt; 100) {
+            stream.write(percentage + '...');
         }
         else {
-            stream.write(percentage + &#x27;\n&#x27;);
+            stream.write(percentage + '\n');
             last_progress_percentage = 0;
         }
         return;
     }
     var bar_length = Math.floor(progress_len * progress),
-        str       = &#x27;&#x27;;
-    if (bar_length == 0 &#x26;&#x26; progress &#x3e; 0) {
+        str       = '';
+    if (bar_length == 0 &amp;&amp; progress &gt; 0) {
         bar_length = 1;
     }
-    for (i = 1; i &#x3c;= progress_len; i++) {
-        str += i &#x3c;= bar_length ? &#x27;#&#x27; : &#x27; &#x27;;
+    for (i = 1; i &lt;= progress_len; i++) {
+        str += i &lt;= bar_length ? '#' : ' ';
     }
     stream.clearLine();
-    stream.write(&#x27;[&#x27; + str + &#x27;] &#x27; +  percentage);
+    stream.write('[' + str + '] ' +  percentage);
     if (progress === 1) {
-        stream.write(&#x27;\n&#x27;);
+        stream.write('\n');
     } else {
         stream.cursorTo(0);
     }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-cli.toType(/a/);              // &#x27;regex&#x27;
-cli.toType(JSON);             // &#x27;json&#x27;
+cli.toType(/a/);              // 'regex'
+cli.toType(JSON);             // 'json'
 ```
 
 To output a progress bar, call
 
 ```javascript
-cli.<span class="apidocCodeKeywordSpan">progress</span>(progress); //Where 0 &#x3c;= progress &#x3c;= 1
+cli.<span class="apidocCodeKeywordSpan">progress</span>(progress); //Where 0 &lt;= progress &lt;= 1
 ```
 
 To spawn a child process, use
@@ -4389,7 +4382,7 @@ cli.exec(cmd, callback); //callback receives the output of the process (split in
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">setApp = function (name, version) {
-    if (name.indexOf(&#x27;package.json&#x27;) !== -1) {
+    if (name.indexOf('package.json') !== -1) {
         cli.parsePackageJson(name);
     } else {
         cli.app = name;
@@ -4426,17 +4419,17 @@ cli.debug(msg);  //Only shown when using --debug
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">setArgv = function (arr, keep_arg0) {
-    if (typeof arr == &#x27;string&#x27;) {
-      arr = arr.split(&#x27; &#x27;);
+    if (typeof arr == 'string') {
+      arr = arr.split(' ');
     } else {
       arr = arr.slice();
     }
     cli.app = arr.shift();
-    // Strip off argv[0] if it&#x27;s a node binary
+    // Strip off argv[0] if it's a node binary
     // So this is still broken and will break if you are calling node through a
-    // symlink, unless you are lucky enough to have it as &#x27;node&#x27; literal. Latter
+    // symlink, unless you are lucky enough to have it as 'node' literal. Latter
     // is a hack, but resolving abspaths/symlinks is an unportable can of worms.
-    if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cli.native.path.basename(cli.app)) !== -1
+    if (!keep_arg0 &amp;&amp; (['node', 'node.exe'].indexOf(cli.native.path.basename(cli.app)) !== -1
             || cli.native.path.basename(process.execPath) === cli.app
             || process.execPath === cli.app)) {
         cli.app = arr.shift();
@@ -4495,17 +4488,17 @@ cli.<span class="apidocCodeKeywordSpan">setArgv</span>(process.argv);
     <li>description and source-code<pre class="apidocCodePre">spinner = function (prefix, end, stream) {
     stream = stream || process.stdout;
     if(!stream.isTTY) {
-        stream.write(prefix + &#x27;\n&#x27;);
+        stream.write(prefix + '\n');
         return;
     }
     if (end) {
         stream.clearLine();
         stream.cursorTo(0);
-        stream.write(prefix + &#x27;\n&#x27;);
+        stream.write(prefix + '\n');
         return clearInterval(spinner_interval);
     }
-    prefix = prefix + &#x27; &#x27; || &#x27;&#x27;;
-    var spinner = [&#x27;-&#x27;,&#x27;\\&#x27;,&#x27;|&#x27;,&#x27;/&#x27;], i = 0, l = spinner.length;
+    prefix = prefix + ' ' || '';
+    var spinner = ['-','\\','|','/'], i = 0, l = spinner.length;
     spinner_interval = setInterval(function () {
         stream.clearLine();
         stream.cursorTo(0);
@@ -4528,37 +4521,37 @@ cli.<span class="apidocCodeKeywordSpan">setArgv</span>(process.argv);
     <li>description and source-code<pre class="apidocCodePre">status = function (msg, type) {
     var pre;
     switch (type) {
-    case &#x27;info&#x27;:
-        pre = cli.no_color ? &#x27;INFO:&#x27; : &#x27;\x1B[33mINFO\x1B[0m:&#x27;;
+    case 'info':
+        pre = cli.no_color ? 'INFO:' : '\x1B[33mINFO\x1B[0m:';
         break;
-    case &#x27;debug&#x27;:
-        pre = cli.no_color ? &#x27;DEBUG:&#x27; : &#x27;\x1B[36mDEBUG\x1B[0m:&#x27;;
+    case 'debug':
+        pre = cli.no_color ? 'DEBUG:' : '\x1B[36mDEBUG\x1B[0m:';
         break;
-    case &#x27;error&#x27;:
-    case &#x27;fatal&#x27;:
-        pre = cli.no_color ? &#x27;ERROR:&#x27; : &#x27;\x1B[31mERROR\x1B[0m:&#x27;;
+    case 'error':
+    case 'fatal':
+        pre = cli.no_color ? 'ERROR:' : '\x1B[31mERROR\x1B[0m:';
         break;
-    case &#x27;ok&#x27;:
-        pre = cli.no_color ? &#x27;OK:&#x27; : &#x27;\x1B[32mOK\x1B[0m:&#x27;;
+    case 'ok':
+        pre = cli.no_color ? 'OK:' : '\x1B[32mOK\x1B[0m:';
         break;
     }
-    msg = pre + &#x27; &#x27; + msg;
-    if (type === &#x27;fatal&#x27;) {
+    msg = pre + ' ' + msg;
+    if (type === 'fatal') {
         console.error(msg);
         return cli.exit(1);
     }
-    if (enable.status &#x26;&#x26; !show_debug &#x26;&#x26; type === &#x27;debug&#x27;) {
+    if (enable.status &amp;&amp; !show_debug &amp;&amp; type === 'debug') {
         return;
     }
     console.error(msg);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
-   if (enable.status &#x26;&#x26; !show_debug &#x26;&#x26; type === &#x27;debug&#x27;) {
+   if (enable.status &amp;&amp; !show_debug &amp;&amp; type === 'debug') {
        return;
    }
    console.error(msg);
 };
-[&#x27;info&#x27;,&#x27;error&#x27;,&#x27;ok&#x27;,&#x27;debug&#x27;,&#x27;fatal&#x27;].forEach(function (type) {
+['info','error','ok','debug','fatal'].forEach(function (type) {
    cli[type] = function (msg) {
        cli.<span class="apidocCodeKeywordSpan">status</span>(msg, type);
    };
@@ -4584,18 +4577,18 @@ cli.<span class="apidocCodeKeywordSpan">setArgv</span>(process.argv);
     var type = ({}).toString.call(obj).match(/\s([a-zA-Z]+)/)[1].toLowerCase();
 
     function isInt(n) {
-        return Number(n) === n &#x26;&#x26; n % 1 === 0;
+        return Number(n) === n &amp;&amp; n % 1 === 0;
     }
 
     function isFloat(n){
-        return n === Number(n) &#x26;&#x26; n % 1 !== 0;
+        return n === Number(n) &amp;&amp; n % 1 !== 0;
     }
 
-    if ( type === &#x27;number&#x27; ) {
+    if ( type === 'number' ) {
         if ( isInt(obj) ) {
-            return &#x27;integer&#x27;;
+            return 'integer';
         } else if ( isFloat(obj) ) {
-            return &#x27;float&#x27;;
+            return 'float';
         }
     }
 
@@ -4611,13 +4604,13 @@ cli.<span class="apidocCodeKeywordSpan">setArgv</span>(process.argv);
 ```javascript
 //cli.<span class="apidocCodeKeywordSpan">toType</span>(object);         If a Built-in type, returns the name of the type as a lower
  cased String
-cli.toType([]);               // &#x27;array&#x27;
-cli.toType(new Date());       // &#x27;date&#x27;
-cli.toType(1);                // &#x27;integer&#x27;
-cli.toType(1.1);              // &#x27;float&#x27;
-cli.toType(Math);             // &#x27;math&#x27;
-cli.toType(/a/);              // &#x27;regex&#x27;
-cli.toType(JSON);             // &#x27;json&#x27;
+cli.toType([]);               // 'array'
+cli.toType(new Date());       // 'date'
+cli.toType(1);                // 'integer'
+cli.toType(1.1);              // 'float'
+cli.toType(Math);             // 'math'
+cli.toType(/a/);              // 'regex'
+cli.toType(JSON);             // 'json'
 ...</pre></li>
     </ul>
 
@@ -4631,34 +4624,34 @@ cli.toType(JSON);             // &#x27;json&#x27;
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">withInput = function (file, encoding, callback) {
-    if (typeof encoding === &#x27;function&#x27;) {
+    if (typeof encoding === 'function') {
         callback = encoding;
-        encoding = &#x27;utf8&#x27;;
-    } else if (typeof file === &#x27;function&#x27;) {
+        encoding = 'utf8';
+    } else if (typeof file === 'function') {
         callback = file;
-        encoding = &#x27;utf8&#x27;;
-        file = &#x27;stdin&#x27;;
+        encoding = 'utf8';
+        file = 'stdin';
     }
-    if (file === &#x27;stdin&#x27;) {
+    if (file === 'stdin') {
         file = process.openStdin();
     } else {
         try {
             file = cli.native.fs.createReadStream(file);
-            file.on(&#x27;error&#x27;, cli.fatal);
+            file.on('error', cli.fatal);
         } catch (e) {
             return cli.fatal(e);
         }
     }
     file.setEncoding(encoding);
-    var lines = [], data = &#x27;&#x27;, eof, sep;
-    file.on(&#x27;data&#x27;, function (chunk) {
+    var lines = [], data = '', eof, sep;
+    file.on('data', function (chunk) {
         if (eof) return;
         data += chunk;
         if (!sep) {
-            if (data.indexOf(&#x27;\r\n&#x27;) !== -1) {
-                sep = &#x27;\r\n&#x27;;
-            } else if (data.indexOf(&#x27;\n&#x27;) !== -1) {
-                sep = &#x27;\n&#x27;;
+            if (data.indexOf('\r\n') !== -1) {
+                sep = '\r\n';
+            } else if (data.indexOf('\n') !== -1) {
+                sep = '\n';
             } else {
                 last_line = data;
                 return;
@@ -4670,10 +4663,10 @@ cli.toType(JSON);             // &#x27;json&#x27;
             callback.apply(cli, [lines.shift(), sep, false]);
         }
     });
-    file.on(&#x27;end&#x27;, function () {
+    file.on('end', function () {
         eof = true;
         if (data.length) {
-            callback.apply(cli, [data, sep || &#x27;&#x27;, false]);
+            callback.apply(cli, [data, sep || '', false]);
         }
         callback.apply(cli, [null, null, true]);
     });
@@ -4707,16 +4700,16 @@ cli.<span class="apidocCodeKeywordSpan">withInput</span>(file, function (line, n
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">withStdin = function (encoding, callback) {
-    if (typeof encoding === &#x27;function&#x27;) {
+    if (typeof encoding === 'function') {
         callback = encoding;
-        encoding = &#x27;utf8&#x27;;
+        encoding = 'utf8';
     }
-    var stream = process.openStdin(), data = &#x27;&#x27;;
+    var stream = process.openStdin(), data = '';
     stream.setEncoding(encoding);
-    stream.on(&#x27;data&#x27;, function (chunk) {
+    stream.on('data', function (chunk) {
         data += chunk;
     });
-    stream.on(&#x27;end&#x27;, function () {
+    stream.on('end', function () {
         callback.apply(cli, [data]);
     });
 }</pre></li>
@@ -4751,7 +4744,7 @@ cli.withInput(file, function (line, newline, eof) {
     <ul>
     <li>description and source-code<pre class="apidocCodePre">withStdinLines = function (callback) {
     cli.withStdin(function (data) {
-        var sep = data.indexOf(&#x27;\r\n&#x27;) !== -1 ? &#x27;\r\n&#x27; : &#x27;\n&#x27;;
+        var sep = data.indexOf('\r\n') !== -1 ? '\r\n' : '\n';
         callback.apply(cli, [data.split(sep), sep]);
     });
 }</pre></li>
@@ -4763,7 +4756,7 @@ cli.withInput(file, function (line, newline, eof) {
 
 ```javascript
 #!/usr/bin/env node
-require(&#x27;cli&#x27;).<span class="apidocCodeKeywordSpan">withStdinLines</span>(function(lines, newline) {
+require('cli').<span class="apidocCodeKeywordSpan">withStdinLines</span>(function(lines, newline) {
     this.output(lines.sort().join(newline));
 });
 ```
@@ -4809,7 +4802,7 @@ Try it out
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function ok(value, message) {
-  if (!value) fail(value, true, message, &#x27;==&#x27;, assert.ok);
+  if (!value) fail(value, true, message, '==', assert.ok);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -4827,7 +4820,7 @@ Try it out
   this.id = id;
   this.exports = {};
   this.parent = parent;
-  if (parent &#x26;&#x26; parent.children) {
+  if (parent &amp;&amp; parent.children) {
     parent.children.push(this);
   }
 
@@ -4861,7 +4854,7 @@ Try it out
     remove(item);
   }
 
-  // items are linked  with _idleNext -&#x3e; (older) and _idlePrev -&#x3e; (newer)
+  // items are linked  with _idleNext -&gt; (older) and _idlePrev -&gt; (newer)
   // Note: This linkage (next being older) may seem counter-intuitive at first.
   item._idleNext = list._idleNext;
   item._idlePrev = list;
@@ -4978,17 +4971,17 @@ Try it out
     <li>example usage<pre class="apidocCodePre">...
  */
 cli.setArgv = function (arr, keep_arg0) {
-if (typeof arr == &#x27;string&#x27;) {
-  arr = arr.split(&#x27; &#x27;);
+if (typeof arr == 'string') {
+  arr = arr.split(' ');
 } else {
   arr = arr.slice();
 }
 cli.app = arr.<span class="apidocCodeKeywordSpan">shift</span>();
-// Strip off argv[0] if it&#x27;s a node binary
+// Strip off argv[0] if it's a node binary
 // So this is still broken and will break if you are calling node through a
-// symlink, unless you are lucky enough to have it as &#x27;node&#x27; literal. Latter
+// symlink, unless you are lucky enough to have it as 'node' literal. Latter
 // is a hack, but resolving abspaths/symlinks is an unportable can of worms.
-if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cli.native.path.basename(cli.app)) !== -1
+if (!keep_arg0 &amp;&amp; (['node', 'node.exe'].indexOf(cli.native.path.basename(cli.app)) !== -1
         || cli.native.path.basename(process.execPath) === cli.app
         || process.execPath === cli.app)) {
 ...</pre></li>
@@ -5009,7 +5002,7 @@ if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cl
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function ok(value, message) {
-  if (!value) fail(value, true, message, &#x27;==&#x27;, assert.ok);
+  if (!value) fail(value, true, message, '==', assert.ok);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -5024,7 +5017,7 @@ if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cl
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function AssertionError(options) {
-  this.name = &#x27;AssertionError&#x27;;
+  this.name = 'AssertionError';
   this.actual = options.actual;
   this.expected = options.expected;
   this.operator = options.operator;
@@ -5052,7 +5045,7 @@ if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cl
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function deepEqual(actual, expected, message) {
   if (!_deepEqual(actual, expected, false)) {
-    fail(actual, expected, message, &#x27;deepEqual&#x27;, assert.deepEqual);
+    fail(actual, expected, message, 'deepEqual', assert.deepEqual);
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5069,7 +5062,7 @@ if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cl
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function deepStrictEqual(actual, expected, message) {
   if (!_deepEqual(actual, expected, true)) {
-    fail(actual, expected, message, &#x27;deepStrictEqual&#x27;, assert.deepStrictEqual);
+    fail(actual, expected, message, 'deepStrictEqual', assert.deepStrictEqual);
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5100,7 +5093,7 @@ if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cl
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function equal(actual, expected, message) {
-  if (actual != expected) fail(actual, expected, message, &#x27;==&#x27;, assert.equal);
+  if (actual != expected) fail(actual, expected, message, '==', assert.equal);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -5150,7 +5143,7 @@ if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cl
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function notDeepEqual(actual, expected, message) {
   if (_deepEqual(actual, expected, false)) {
-    fail(actual, expected, message, &#x27;notDeepEqual&#x27;, assert.notDeepEqual);
+    fail(actual, expected, message, 'notDeepEqual', assert.notDeepEqual);
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5167,7 +5160,7 @@ if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cl
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function notDeepStrictEqual(actual, expected, message) {
   if (_deepEqual(actual, expected, true)) {
-    fail(actual, expected, message, &#x27;notDeepStrictEqual&#x27;, notDeepStrictEqual);
+    fail(actual, expected, message, 'notDeepStrictEqual', notDeepStrictEqual);
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5184,7 +5177,7 @@ if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cl
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function notEqual(actual, expected, message) {
   if (actual == expected) {
-    fail(actual, expected, message, &#x27;!=&#x27;, assert.notEqual);
+    fail(actual, expected, message, '!=', assert.notEqual);
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5201,7 +5194,7 @@ if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cl
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function notStrictEqual(actual, expected, message) {
   if (actual === expected) {
-    fail(actual, expected, message, &#x27;!==&#x27;, assert.notStrictEqual);
+    fail(actual, expected, message, '!==', assert.notStrictEqual);
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5217,7 +5210,7 @@ if (!keep_arg0 &#x26;&#x26; ([&#x27;node&#x27;, &#x27;node.exe&#x27;].indexOf(cl
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function ok(value, message) {
-  if (!value) fail(value, true, message, &#x27;==&#x27;, assert.ok);
+  if (!value) fail(value, true, message, '==', assert.ok);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 Adds options to show/hide the stylized status messages that are output to the console when using one of these methods
@@ -5249,7 +5242,7 @@ Enables glob matching of arguments
     <ul>
     <li>description and source-code<pre class="apidocCodePre">function strictEqual(actual, expected, message) {
   if (actual !== expected) {
-    fail(actual, expected, message, &#x27;===&#x27;, assert.strictEqual);
+    fail(actual, expected, message, '===', assert.strictEqual);
   }
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
@@ -5279,3 +5272,4 @@ Enables glob matching of arguments
     ]
 </div>
 </div>
+</body></html>
